@@ -1,0 +1,1928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riyad Hossain - Digital Architect Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Three.js CDN for 3D particles -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            background-color: #1A1A1A; /* Deep Charcoal Background */
+            color: #F0F0F0; /* Soft White Text */
+            scroll-behavior: smooth; /* Smooth scrolling for anchor links */
+        }
+
+        /* Custom Scrollbar Styling */
+        body::-webkit-scrollbar {
+            width: 8px;
+        }
+        body::-webkit-scrollbar-track {
+            background: #2A2A2A; /* Darker track */
+            border-radius: 10px;
+        }
+        body::-webkit-scrollbar-thumb {
+            background-color: #00E600; /* Electric Green thumb */
+            border-radius: 10px;
+            border: 2px solid #2A2A2A;
+        }
+        body::-webkit-scrollbar-thumb:hover {
+            background-color: #00CC00; /* Slightly darker green on hover */
+        }
+
+        /* Container for the 3D particles background */
+        #particles-background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: -1; /* Ensure it's behind all content */
+            background-color: #1A1A1A; /* Fallback/base color for the background */
+        }
+
+        #particles-background-container canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Basic animation for page transitions */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        /* Typing Effect for Hero Title (No longer used for hero text, but kept for reference) */
+        .typing-text {
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 0.15em solid #00E600; /* Cursor */
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #00E600; }
+        }
+
+        /* Rotating Tagline Effect */
+        .rotating-tagline-container {
+            min-height: 2.5rem; /* Ensure enough height for text rotation */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            max-width: 3xl;
+            margin-left: auto;
+            margin-right: auto;
+            color: #90EE90; /* Light Green for taglines */
+            font-size: 1.125rem; /* text-lg */
+        }
+
+        .rotating-tagline-content {
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            position: absolute; /* Allow stacking for smooth transitions */
+            text-align: center;
+            width: 100%;
+        }
+        .rotating-tagline-content.active {
+            opacity: 1;
+        }
+
+        /* Button Glow Effect */
+        .btn-glow {
+            position: relative;
+            overflow: hidden;
+            background-color: #00E600; /* Electric Green */
+            color: #1A1A1A; /* Dark text on bright button */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Subtle text shadow */
+        }
+        .btn-glow:hover {
+            background-color: #00CC00; /* Slightly darker green on hover */
+            box-shadow: 0 0 20px rgba(0, 230, 0, 0.8), 0 0 30px rgba(0, 230, 0, 0.6); /* Stronger green glow */
+            transform: translateY(-2px); /* Slight lift on hover */
+        }
+        .btn-glow:active {
+            transform: translateY(0); /* Press down effect */
+        }
+
+        /* Card Glow Effect */
+        .card-glow {
+            background-color: #2A2A2A; /* Slightly lighter dark gray */
+            border: 1px solid #3A3A3A; /* Subtle border */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Initial subtle shadow */
+        }
+        .card-glow:hover {
+            border-color: #00E600; /* Green border on hover */
+            box-shadow: 0 0 15px rgba(0, 230, 0, 0.6), 0 0 25px rgba(0, 230, 0, 0.4); /* Stronger green glow */
+            transform: translateY(-5px); /* Lift up effect */
+        }
+
+        /* Digital Text Glow Effect for Header Name */
+        .digital-text-glow {
+            text-shadow: 0 0 8px rgba(0, 230, 0, 0.8), 0 0 15px rgba(0, 230, 0, 0.6), 0 0 20px rgba(0, 230, 0, 0.4);
+            animation: pulse-glow 3s infinite alternate ease-in-out; /* Slower, smoother pulse */
+        }
+
+        @keyframes pulse-glow {
+            from {
+                text-shadow: 0 0 5px rgba(0, 230, 0, 0.5), 0 0 10px rgba(0, 230, 0, 0.3);
+            }
+            to {
+                text-shadow: 0 0 10px rgba(0, 230, 0, 1), 0 0 20px rgba(0, 230, 0, 0.8), 0 0 30px rgba(0, 230, 0, 0.6);
+            }
+        }
+
+        /* --- Circuit Board Header Styles --- */
+        .circuit-header {
+            background-color: rgba(15, 15, 15, 0.9); /* Even darker background for header with slight transparency */
+            backdrop-filter: blur(5px); /* Frosted glass effect */
+            -webkit-backdrop-filter: blur(5px); /* Safari support */
+            background-image:
+                linear-gradient(0deg, transparent 95%, rgba(0, 230, 0, 0.05) 100%),
+                linear-gradient(90deg, transparent 95%, rgba(0, 230, 0, 0.05) 100%);
+            background-size: 20px 20px; /* Smaller grid for circuit board feel */
+            border-bottom: 2px solid #00E600; /* Stronger green border */
+            box-shadow: 0 5px 20px rgba(0, 230, 0, 0.4); /* Stronger green shadow */
+            position: sticky; /* Make header sticky */
+            top: 0;
+            z-index: 100; /* Ensure it's above all content */
+            padding: 1.5rem 2rem; /* Increased padding */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .circuit-nav {
+            display: flex;
+            position: relative; /* For positioning traces */
+            gap: 1.5rem; /* More space between nodes */
+            margin-top: 0.5rem; /* Adjust vertical alignment */
+            margin-bottom: 0.5rem;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1; /* Allow nav to take available space */
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+
+        .circuit-node-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10; /* Ensure nodes are above traces */
+        }
+
+        .circuit-node {
+            width: 3.5rem; /* Base size for nodes */
+            height: 3.5rem;
+            background-color: #2A2A2A; /* Dark node background */
+            border-radius: 50%; /* Circular nodes */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            box-shadow: 0 0 8px rgba(0, 230, 0, 0.2); /* Subtle initial glow */
+            border: 1px solid #3A3A3A;
+            font-size: 0.85rem; /* Smaller text for nodes */
+            font-weight: 600;
+            color: #F0F0F0;
+            text-align: center;
+            line-height: 1.2;
+            padding: 0.2rem;
+            position: relative; /* For absolute positioning of label */
+        }
+
+        .circuit-node:hover {
+            transform: scale(1.25); /* Magnify more on hover */
+            background-color: #00E600; /* Bright green on hover */
+            color: #1A1A1A; /* Dark text on bright node */
+            box-shadow: 0 0 20px rgba(0, 230, 0, 0.8), 0 0 35px rgba(0, 230, 0, 0.6); /* Stronger glow */
+            border-color: #00E600;
+        }
+
+        .circuit-node.active {
+            background-color: #00E600; /* Active node background */
+            color: #1A1A1A; /* Dark text for active node */
+            box-shadow: 0 0 25px rgba(0, 230, 0, 1), 0 0 40px rgba(0, 230, 0, 0.8); /* Persistent strong glow */
+            border-color: #00E600;
+            transform: scale(1.15); /* Slightly magnified when active */
+        }
+
+        .circuit-node-label {
+            position: absolute;
+            bottom: calc(100% + 0.5rem); /* Position above the node */
+            background-color: #1A1A1A;
+            color: #00E600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(10px);
+            transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+            z-index: 15; /* Ensure label is above everything */
+            font-size: 0.8rem;
+            font-weight: 700;
+            border: 1px solid #00E600;
+            box-shadow: 0 2px 8px rgba(0, 230, 0, 0.5); /* Stronger label shadow */
+        }
+
+        .circuit-node-wrapper:hover .circuit-node-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Circuit Traces */
+        .circuit-trace {
+            position: absolute;
+            background-color: rgba(0, 230, 0, 0.1); /* Subtle trace color */
+            height: 2px; /* Thickness of the trace */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 5px rgba(0, 230, 0, 0); /* No initial glow */
+            z-index: 5; /* Below nodes */
+        }
+
+        .circuit-trace.active,
+        .circuit-trace.hovered {
+            background-color: rgba(0, 230, 0, 0.6); /* Brighter when active/hovered */
+            box-shadow: 0 0 12px rgba(0, 230, 0, 1); /* Stronger glow */
+        }
+
+        /* Hero Text Effect Container */
+        #hero-text-effect-container {
+            position: relative;
+            width: 100%;
+            height: 150px; /* Adjusted height for text */
+            margin-bottom: 1rem; /* Space below the text */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Hide overflow from blur */
+        }
+        #hero-text-effect-container canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Stepper Styles */
+        .stepper-outer-container {
+            background-color: #2A2A2A;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 0 20px rgba(0, 230, 0, 0.4); /* Stronger shadow */
+            max-width: 800px;
+            margin: 2rem auto;
+            border: 1px solid #3A3A3A;
+        }
+
+        .stepper-step-circle-container {
+            border: 1px solid #4A4A4A;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            background-color: #1A1A1A;
+        }
+
+        .stepper-step-indicator-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .stepper-step-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            z-index: 20; /* Ensure indicators are above connectors */
+        }
+
+        .stepper-step-indicator-inner {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+            border: 2px solid #4A4A4A;
+            background-color: #222;
+            color: #a3a3a3;
+        }
+
+        .stepper-step-indicator.active .stepper-step-indicator-inner {
+            background-color: #00E600;
+            color: #1A1A1A;
+            border-color: #00E600;
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(0, 230, 0, 0.7);
+        }
+
+        .stepper-step-indicator.complete .stepper-step-indicator-inner {
+            background-color: #00E600;
+            color: #1A1A1A;
+            border-color: #00E600;
+            box-shadow: 0 0 5px rgba(0, 230, 0, 0.5);
+        }
+
+        .stepper-check-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            stroke: #1A1A1A; /* Dark color for checkmark */
+        }
+
+        .stepper-active-dot {
+            width: 0.75rem;
+            height: 0.75rem;
+            background-color: #1A1A1A;
+            border-radius: 50%;
+        }
+
+        .stepper-step-connector {
+            flex-grow: 1;
+            height: 2px;
+            background-color: #4A4A4A;
+            margin: 0 -0.5rem; /* Overlap with indicators */
+            position: relative;
+            z-index: 10;
+        }
+
+        .stepper-step-connector-inner {
+            height: 100%;
+            background-color: transparent;
+            transition: width 0.4s ease, background-color 0.4s ease;
+        }
+
+        .stepper-step-connector.complete .stepper-step-connector-inner {
+            background-color: #00E600;
+            width: 100%;
+        }
+
+        .stepper-step-content-wrapper {
+            position: relative;
+            overflow: hidden;
+            min-height: 150px; /* Ensure enough space for content */
+            transition: height 0.4s ease-out;
+        }
+
+        .stepper-step-content {
+            position: absolute;
+            width: 100%;
+            padding: 1rem 0;
+            transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+        }
+
+        .stepper-step-content.enter-right { transform: translateX(100%); opacity: 0; }
+        .stepper-step-content.enter-left { transform: translateX(-100%); opacity: 0; }
+        .stepper-step-content.center { transform: translateX(0%); opacity: 1; }
+        .stepper-step-content.exit-right { transform: translateX(50%); opacity: 0; }
+        .stepper-step-content.exit-left { transform: translateX(-50%); opacity: 0; }
+
+
+        .stepper-footer-container {
+            padding-top: 1.5rem;
+            border-top: 1px solid #4A4A4A;
+            margin-top: 1.5rem;
+        }
+
+        .stepper-footer-nav {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .stepper-footer-nav.end {
+            justify-content: flex-end;
+        }
+
+        .stepper-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease, transform 0.2s ease;
+        }
+
+        .stepper-back-button {
+            background-color: #4A4A4A;
+            color: #F0F0F0;
+        }
+        .stepper-back-button:hover {
+            background-color: #5A5A5A;
+            transform: translateY(-2px);
+        }
+        .stepper-back-button.inactive {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .stepper-next-button {
+            background-color: #00E600;
+            color: #1A1A1A;
+        }
+        .stepper-next-button:hover {
+            background-color: #00CC00;
+            box-shadow: 0 0 15px rgba(0, 230, 0, 0.6);
+            transform: translateY(-2px);
+        }
+
+        /* Input field focus glow */
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #00E600;
+            box-shadow: 0 0 0 3px rgba(0, 230, 0, 0.3);
+        }
+
+        /* Tasbeeh Counter Styles */
+        .tasbeeh-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background-color: #2A2A2A;
+            border-radius: 1rem;
+            box-shadow: 0 0 20px rgba(0, 230, 0, 0.4); /* Stronger shadow */
+            max-width: 400px;
+            margin: 2rem auto;
+            border: 1px solid #3A3A3A;
+        }
+
+        .tasbeeh-display {
+            display: flex;
+            position: relative;
+            overflow: hidden;
+            background-color: #1A1A1A;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: inset 0 0 10px rgba(0, 230, 0, 0.3); /* More pronounced inner shadow */
+            border: 1px solid #3A3A3A;
+            font-family: 'Inter', monospace; /* Monospace for digital feel */
+            font-size: 3.5rem; /* Slightly larger font size for impact */
+            font-weight: bold;
+            color: #00E600; /* Electric green for digits */
+            line-height: 1em; /* Ensure line height matches font size */
+        }
+
+        .tasbeeh-digit-wrapper {
+            position: relative;
+            width: 0.7em; /* Slightly wider per digit */
+            height: 1em; /* Height of a single digit slot */
+            overflow: hidden;
+        }
+
+        .tasbeeh-digit-numbers {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            transition: transform 0.2s ease-out; /* Faster rolling animation */
+        }
+
+        .tasbeeh-digit-number {
+            height: 1em; /* Each number takes up the height of the digit slot */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tasbeeh-buttons {
+            display: flex;
+            gap: 1.5rem; /* Increased gap */
+        }
+
+        .tasbeeh-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+            background-color: #00E600;
+            color: #1A1A1A;
+        }
+
+        .tasbeeh-button:hover {
+            background-color: #00CC00;
+            box-shadow: 0 0 15px rgba(0, 230, 0, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .tasbeeh-reset-button {
+            background-color: #4A4A4A;
+            color: #F0F0F0;
+        }
+        .tasbeeh-reset-button:hover {
+            background-color: #5A5A5A;
+            transform: translateY(-2px);
+        }
+
+        /* Asma-ul-Husna Styles */
+        .asma-ul-husna-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+            background-color: #1A1A1A;
+            border-radius: 0.75rem;
+            border: 1px solid #3A3A3A;
+            box-shadow: 0 0 15px rgba(0, 230, 0, 0.3); /* Stronger shadow */
+        }
+
+        .asma-ul-husna-item {
+            background-color: #2A2A2A;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #90EE90; /* Light green for names */
+            border: 1px solid #3A3A3A;
+            transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .asma-ul-husna-item:hover {
+            transform: translateY(-5px); /* More pronounced lift */
+            background-color: #3A3A3A;
+            border-color: #00E600;
+            box-shadow: 0 0 12px rgba(0, 230, 0, 0.6); /* Stronger glow on hover */
+        }
+
+        /* Card Swiper Styles (New) */
+        .projects-swiper-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px; /* Slightly wider */
+            height: 450px; /* Slightly taller */
+            margin: 2rem auto;
+            perspective: 1200px; /* More pronounced 3D effect */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 2rem; /* Space for dots */
+        }
+
+        .swiper-card {
+            position: absolute;
+            width: 85%; /* Relative to container */
+            height: 85%; /* Relative to container */
+            border-radius: 16px; /* More rounded corners */
+            border: 2px solid #00E600; /* Thicker green border */
+            background: #1A1A1A; /* Dark background */
+            color: #F0F0F0;
+            padding: 2rem; /* More padding */
+            box-shadow: 0 10px 30px rgba(0, 230, 0, 0.5); /* Stronger shadow */
+            transform-style: preserve-3d;
+            transition: transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.7s ease-out, z-index 0.01s linear 0.3s; /* Smoother, bouncier transition */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .swiper-card.active {
+            z-index: 10;
+            opacity: 1;
+            transform: translateX(0) rotateY(0deg) scale(1);
+        }
+
+        .swiper-card.prev {
+            z-index: 5;
+            opacity: 0.6; /* More faded */
+            transform: translateX(-70%) rotateY(25deg) scale(0.75); /* More pronounced side view */
+        }
+
+        .swiper-card.next {
+            z-index: 5;
+            opacity: 0.6; /* More faded */
+            transform: translateX(70%) rotateY(-25deg) scale(0.75); /* More pronounced side view */
+        }
+
+        .swiper-card.hidden {
+            z-index: 1;
+            opacity: 0;
+            transform: translateX(0) rotateY(0deg) scale(0.5); /* Collapse further behind */
+            pointer-events: none; /* Disable interaction when hidden */
+        }
+
+        .swiper-card-image {
+            width: 100%;
+            height: 150px; /* Taller image */
+            object-fit: cover;
+            border-radius: 10px; /* More rounded image corners */
+            margin-bottom: 1.5rem; /* More space below image */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .swiper-card-title {
+            font-size: 1.75rem; /* Larger title */
+            font-weight: bold;
+            color: #00E600;
+            margin-bottom: 0.75rem;
+        }
+
+        .swiper-card-description {
+            font-size: 1rem; /* Slightly larger description text */
+            color: #C0C0C0; /* Lighter gray for better contrast */
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
+        }
+
+        .swiper-card-link {
+            display: inline-block;
+            padding: 0.6rem 1.8rem; /* Larger button */
+            background-color: #00E600;
+            color: #1A1A1A;
+            border-radius: 0.6rem; /* More rounded */
+            font-weight: 700; /* Bolder text */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+            text-shadow: 0 0 3px rgba(255, 255, 255, 0.3); /* Subtle text shadow */
+        }
+        .swiper-card-link:hover {
+            background-color: #00CC00;
+            box-shadow: 0 0 12px rgba(0, 230, 0, 0.7);
+            transform: translateY(-3px);
+        }
+
+        /* Navigation buttons for swiper */
+        .swiper-nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 0.8rem 1.2rem; /* Larger buttons */
+            background-color: rgba(0, 230, 0, 0.25); /* More visible semi-transparent green */
+            color: #00E600;
+            border-radius: 9999px; /* Full rounded */
+            font-size: 1.75rem; /* Larger arrows */
+            cursor: pointer;
+            z-index: 20;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #00E600;
+            box-shadow: 0 0 10px rgba(0, 230, 0, 0.3);
+        }
+        .swiper-nav-button:hover {
+            background-color: rgba(0, 230, 0, 0.5);
+            transform: translateY(-50%) scale(1.15); /* More pronounced scale */
+            box-shadow: 0 0 20px rgba(0, 230, 0, 0.8);
+        }
+        .swiper-nav-button.left {
+            left: -30px; /* Move further out */
+        }
+        .swiper-nav-button.right {
+            right: -30px; /* Move further out */
+        }
+
+        /* Swiper Dot Indicators */
+        .swiper-dots-container {
+            position: absolute;
+            bottom: 10px; /* Position below the swiper */
+            display: flex;
+            gap: 0.75rem; /* Spacing between dots */
+            z-index: 25; /* Above cards */
+        }
+
+        .swiper-dot {
+            width: 12px; /* Size of dot */
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(0, 230, 0, 0.3); /* Subtle green */
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border: 1px solid rgba(0, 230, 0, 0.5);
+        }
+
+        .swiper-dot.active {
+            background-color: #00E600; /* Bright green when active */
+            transform: scale(1.2); /* Slightly larger when active */
+            box-shadow: 0 0 8px rgba(0, 230, 0, 0.8);
+        }
+
+        /* Responsive adjustments for swiper */
+        @media (max-width: 768px) {
+            .projects-swiper-container {
+                max-width: 90%;
+                height: 380px;
+            }
+            .swiper-card {
+                width: 90%;
+                height: 80%;
+                padding: 1.5rem;
+            }
+            .swiper-nav-button {
+                left: 0px;
+                right: 0px;
+                font-size: 1.4rem;
+                padding: 0.6rem 0.8rem;
+            }
+            .swiper-card.prev {
+                transform: translateX(-55%) rotateY(15deg) scale(0.8);
+            }
+            .swiper-card.next {
+                transform: translateX(55%) rotateY(-15deg) scale(0.8);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .projects-swiper-container {
+                height: 320px;
+            }
+            .swiper-card {
+                width: 95%;
+                height: 85%;
+                padding: 1rem;
+            }
+            .swiper-card-image {
+                height: 100px;
+                margin-bottom: 1rem;
+            }
+            .swiper-card-title {
+                font-size: 1.3rem;
+                margin-bottom: 0.4rem;
+            }
+            .swiper-card-description {
+                font-size: 0.85rem;
+                margin-bottom: 1rem;
+            }
+            .swiper-card-link {
+                padding: 0.4rem 1.2rem;
+                font-size: 0.9rem;
+            }
+            .swiper-nav-button {
+                font-size: 1.2rem;
+                padding: 0.4rem 0.6rem;
+            }
+            .swiper-dots-container {
+                bottom: 5px;
+                gap: 0.5rem;
+            }
+            .swiper-dot {
+                width: 10px;
+                height: 10px;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div id="app-container" class="relative min-h-screen">
+        <!-- Particles Background Container -->
+        <div id="particles-background-container"></div>
+
+        <!-- Main Content Layer -->
+        <div class="content-layer">
+            <!-- Header and Navigation -->
+            <header class="circuit-header">
+                <nav class="container mx-auto flex flex-wrap justify-between items-center w-full">
+                    <div class="text-2xl font-bold text-green-400 digital-text-glow">Riyad Hossain</div>
+                    <div id="circuit-nav-links" class="circuit-nav">
+                        <!-- Navigation items and traces will be injected here by JavaScript -->
+                    </div>
+                </nav>
+            </header>
+
+            <!-- Main Content Area -->
+            <main id="main-content" class="container mx-auto p-4 md:p-8 py-12">
+                <!-- Page content will be injected here by JavaScript -->
+            </main>
+
+            <!-- Footer -->
+            <footer class="bg-gray-900 text-center p-4 md:p-6 mt-12 border-t border-gray-700">
+                <p>&copy; <span id="current-year"></span> Riyad Hossain. All rights reserved.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Global state to manage the current page and content
+        const appState = {
+            currentPage: 'home',
+            funFact: '',
+            isLoadingFact: false,
+            newsArticles: [],
+            isLoadingNews: false,
+            // Stepper state
+            stepperCurrentStep: 1,
+            stepperDirection: 0, // 1 for next, -1 for back
+            // Tasbeeh Counter state
+            tasbeehCount: 0,
+            // Card Swiper state
+            currentCardIndex: 0,
+            swiperAutoplayInterval: null // To store the autoplay interval ID
+        };
+
+        // --- Typing Effect Logic (No longer used for hero text, but kept for reference) ---
+        function initTypingEffect(elementId, text, speed = 100) {
+            const element = document.getElementById(elementId);
+            if (!element) {
+                console.error(`TypingEffect: Element with ID '${elementId}' not found.`);
+                return;
+            }
+            element.textContent = ''; // Clear existing text
+            element.classList.add('typing-text'); // Add typing animation class
+
+            let i = 0;
+            const type = () => {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    // Remove typing cursor after typing is complete
+                    element.classList.remove('typing-text');
+                }
+            };
+            type();
+        }
+
+        // --- Rotating Tagline Effect Logic ---
+        function initRotatingTagline(containerId, texts, interval = 3000) {
+            const container = document.getElementById(containerId);
+            if (!container) {
+                console.error(`RotatingTagline: Container with ID '${containerId}' not found.`);
+                return;
+            }
+
+            let currentTextIndex = 0;
+            let textElements = []; // To hold multiple elements for smooth transition
+
+            // Create initial text element
+            let initialTextElement = document.createElement('span');
+            initialTextElement.className = 'rotating-tagline-content active';
+            initialTextElement.textContent = texts[currentTextIndex];
+            container.appendChild(initialTextElement);
+            textElements.push(initialTextElement);
+
+            const updateText = () => {
+                // Create new element for the next text
+                const newTextElement = document.createElement('span');
+                newTextElement.className = 'rotating-tagline-content';
+                currentTextIndex = (currentTextIndex + 1) % texts.length;
+                newTextElement.textContent = texts[currentTextIndex];
+                container.appendChild(newTextElement);
+                textElements.push(newTextElement);
+
+                // Fade out old elements
+                textElements.forEach(el => {
+                    if (el !== newTextElement) {
+                        el.classList.remove('active');
+                    }
+                });
+
+                // Fade in new element
+                setTimeout(() => {
+                    newTextElement.classList.add('active');
+                }, 50); // Small delay to ensure transition applies
+
+                // Remove old elements after their transition
+                setTimeout(() => {
+                    while (textElements.length > 1) {
+                        const oldEl = textElements.shift();
+                        if (oldEl.parentNode === container) {
+                            container.removeChild(oldEl);
+                        }
+                    }
+                }, 500); // Match CSS transition duration
+            };
+
+            const intervalId = setInterval(updateText, interval);
+            return () => clearInterval(intervalId); // Return cleanup function
+        }
+
+        // --- Three.js Particles Background Logic ---
+        function initParticlesBackground(containerId, options = {}) {
+            const container = document.getElementById(containerId);
+            if (!container) {
+                console.error(`ParticlesBackground: Container with ID '${containerId}' not found.`);
+                return;
+            }
+
+            let scene, camera, renderer, particles;
+            let mouseX = 0, mouseY = 0;
+            const windowHalfX = window.innerWidth / 2;
+            const windowHalfY = window.innerHeight / 2;
+
+            const defaultParticleOptions = {
+                particleCount: 2000,
+                particleSpread: 10,
+                speed: 0.1,
+                particleColors: ["#00E600", "#90EE90", "#1A1A1A"],
+                moveParticlesOnHover: true,
+                particleHoverFactor: 0.5,
+                alphaParticles: true,
+                particleBaseSize: 2,
+                sizeRandomness: 1,
+                cameraDistance: 20,
+                disableRotation: false,
+            };
+            const config = { ...defaultParticleOptions, ...options };
+
+            // GLSL Shaders adapted for Three.js ShaderMaterial
+            const vertexShader = `
+                attribute vec4 random;
+                attribute vec3 color;
+
+                uniform float uTime;
+                uniform float uSpread;
+                uniform float uBaseSize;
+                uniform float uSizeRandomness;
+
+                varying vec4 vRandom;
+                varying vec3 vColor;
+
+                void main() {
+                    vRandom = random;
+                    vColor = color;
+
+                    vec3 pos = position * uSpread;
+                    pos.z *= 10.0;
+
+                    vec4 mPos = modelMatrix * vec4(pos, 1.0);
+                    float t = uTime;
+                    mPos.x += sin(t * random.z + 6.28 * random.w) * mix(0.1, 1.5, random.x);
+                    mPos.y += sin(t * random.y + 6.28 * random.x) * mix(0.1, 1.5, random.w);
+                    mPos.z += sin(t * random.w + 6.28 * random.y) * mix(0.1, 1.5, random.z);
+
+                    vec4 mvPos = viewMatrix * mPos;
+                    gl_PointSize = (uBaseSize * (1.0 + uSizeRandomness * (random.x - 0.5))) / length(mvPos.xyz);
+                    gl_Position = projectionMatrix * mvPos;
+                }
+            `;
+
+            const fragmentShader = `
+                precision highp float;
+
+                uniform float uTime;
+                uniform float uAlphaParticles;
+                varying vec4 vRandom;
+                varying vec3 vColor;
+
+                void main() {
+                    vec2 uv = gl_PointCoord.xy;
+                    float d = length(uv - vec2(0.5));
+
+                    if(uAlphaParticles < 0.5) {
+                        if(d > 0.5) {
+                            discard;
+                        }
+                        gl_FragColor = vec4(vColor + 0.2 * sin(uv.yxx + uTime + vRandom.y * 6.28), 1.0);
+                    } else {
+                        float circle = smoothstep(0.5, 0.4, d) * 0.8;
+                        gl_FragColor = vec4(vColor + 0.2 * sin(uv.yxx + uTime + vRandom.y * 6.28), circle);
+                    }
+                }
+            `;
+
+            function setupScene() {
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+                camera.position.z = config.cameraDistance;
+
+                renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+                renderer.setPixelRatio(window.devicePixelRatio);
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                container.appendChild(renderer.domElement);
+                renderer.setClearColor(0x000000, 0);
+
+                const positions = new Float32Array(config.particleCount * 3);
+                const randoms = new Float32Array(config.particleCount * 4);
+                const colors = new Float32Array(config.particleCount * 3);
+
+                const hexToRgb = (hex) => {
+                    hex = hex.replace(/^#/, "");
+                    if (hex.length === 3) {
+                        hex = hex.split("").map((c) => c + c).join("");
+                    }
+                    const int = parseInt(hex, 16);
+                    const r = ((int >> 16) & 255) / 255;
+                    const g = ((int >> 8) & 255) / 255;
+                    const b = (int & 255) / 255;
+                    return [r, g, b];
+                };
+
+                const palette = config.particleColors.map(hexToRgb);
+
+                for (let i = 0; i < config.particleCount; i++) {
+                    let x, y, z, len;
+                    do {
+                        x = Math.random() * 2 - 1;
+                        y = Math.random() * 2 - 1;
+                        z = Math.random() * 2 - 1;
+                        len = x * x + y * y + z * z;
+                    } while (len > 1 || len === 0);
+                    const r = Math.cbrt(Math.random());
+                    positions.set([x * r, y * r, z * r], i * 3);
+                    randoms.set([Math.random(), Math.random(), Math.random(), Math.random()], i * 4);
+                    const col = palette[Math.floor(Math.random() * palette.length)];
+                    colors.set(col, i * 3);
+                }
+
+                const geometry = new THREE.BufferGeometry();
+                geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                geometry.setAttribute('random', new THREE.BufferAttribute(randoms, 4));
+                geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+                const material = new THREE.ShaderMaterial({
+                    uniforms: {
+                        uTime: { value: 0 },
+                        uSpread: { value: config.particleSpread },
+                        uBaseSize: { value: config.particleBaseSize },
+                        uSizeRandomness: { value: config.sizeRandomness },
+                        uAlphaParticles: { value: config.alphaParticles ? 1 : 0 },
+                    },
+                    vertexShader: vertexShader,
+                    fragmentShader: fragmentShader,
+                    transparent: true,
+                    depthTest: false,
+                    blending: THREE.AdditiveBlending,
+                });
+
+                particles = new THREE.Points(geometry, material);
+                scene.add(particles);
+            }
+
+            let animationFrameId;
+            let lastTime = performance.now();
+            let elapsed = 0;
+
+            function animate() {
+                animationFrameId = requestAnimationFrame(animate);
+
+                const t = performance.now();
+                const delta = t - lastTime;
+                lastTime = t;
+                elapsed += delta * config.speed;
+
+                particles.material.uniforms.uTime.value = elapsed * 0.001;
+
+                if (config.moveParticlesOnHover) {
+                    particles.position.x += (mouseX * config.particleHoverFactor - particles.position.x) * 0.05;
+                    particles.position.y += (mouseY * config.particleHoverFactor - particles.position.y) * 0.05;
+                } else {
+                    particles.position.x = 0;
+                    particles.position.y = 0;
+                }
+
+                if (!config.disableRotation) {
+                    particles.rotation.x += Math.sin(elapsed * 0.00002) * 0.0001;
+                    particles.rotation.y += Math.cos(elapsed * 0.00005) * 0.00015;
+                    particles.rotation.z += 0.00001 * config.speed;
+                }
+
+                renderer.render(scene, camera);
+            }
+
+            function onWindowResize() {
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+                renderer.setSize(width, height);
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+            }
+
+            function onMouseMove(event) {
+                mouseX = (event.clientX - windowHalfX) / windowHalfX;
+                mouseY = (event.clientY - windowHalfY) / windowHalfY;
+            }
+
+            function onTouchMove(event) {
+                event.preventDefault();
+                const touch = event.touches[0];
+                mouseX = (touch.clientX - windowHalfX) / windowHalfX;
+                mouseY = (touch.clientY - windowHalfY) / windowHalfY;
+            }
+
+            setupScene();
+            animate();
+            window.addEventListener('resize', onWindowResize);
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('touchmove', onTouchMove, { passive: false });
+
+            return () => {
+                cancelAnimationFrame(animationFrameId);
+                window.removeEventListener('resize', onWindowResize);
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('touchmove', onTouchMove);
+                if (container.contains(renderer.domElement)) {
+                    container.removeChild(renderer.domElement);
+                }
+                if (particles) {
+                    particles.geometry.dispose();
+                    particles.material.dispose();
+                }
+                if (renderer) {
+                    renderer.dispose();
+                }
+            };
+        }
+
+
+        // --- Circuit Board Navigation Logic ---
+        function initCircuitNavigation(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) {
+                console.error(`CircuitNavigation: Container with ID '${containerId}' not found.`);
+                return;
+            }
+
+            const navItemsData = [
+                { name: 'Home', page: 'home' },
+                { name: 'News', page: 'news' },
+                { name: 'LLMs', page: 'ai-llm' },
+                { name: 'Agents', page: 'ai-agent' },
+                { name: 'Hub', page: 'knowledge' }
+            ];
+
+            container.innerHTML = '';
+
+            const nodeElements = navItemsData.map(item => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'circuit-node-wrapper';
+
+                const label = document.createElement('div');
+                label.className = 'circuit-node-label';
+                label.textContent = item.name;
+                wrapper.appendChild(label);
+
+                const button = document.createElement('button');
+                button.className = `circuit-node`;
+                button.dataset.page = item.page;
+                button.textContent = item.name;
+                wrapper.appendChild(button);
+
+                return wrapper;
+            });
+
+            nodeElements.forEach(node => container.appendChild(node));
+
+            const traces = [];
+            for (let i = 0; i < nodeElements.length - 1; i++) {
+                const node1 = nodeElements[i].querySelector('.circuit-node');
+                const node2 = nodeElements[i + 1].querySelector('.circuit-node');
+
+                const trace = document.createElement('div');
+                trace.className = 'circuit-trace';
+                container.appendChild(trace);
+                traces.push({ element: trace, node1: node1, node2: node2 });
+            }
+
+            const updateTracesPosition = () => {
+                const navRect = container.getBoundingClientRect();
+                traces.forEach(trace => {
+                    const rect1 = trace.node1.getBoundingClientRect();
+                    const rect2 = trace.node2.getBoundingClientRect();
+
+                    const x1 = rect1.left + rect1.width / 2 - navRect.left;
+                    const y1 = rect1.top + rect1.height / 2 - navRect.top;
+                    const x2 = rect2.left + rect2.width / 2 - navRect.left;
+                    const y2 = rect2.top + rect2.height / 2 - navRect.top;
+
+                    const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+                    const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+
+                    trace.element.style.width = `${length}px`;
+                    trace.element.style.left = `${x1}px`;
+                    trace.element.style.top = `${y1 - trace.element.offsetHeight / 2}px`;
+                    trace.element.style.transform = `rotate(${angle}deg)`;
+                    trace.element.style.transformOrigin = `0 50%`;
+                });
+            };
+
+            window.addEventListener('resize', updateTracesPosition);
+            setTimeout(updateTracesPosition, 0);
+
+            nodeElements.forEach((wrapper, index) => {
+                const button = wrapper.querySelector('.circuit-node');
+                button.onclick = () => navigateTo(button.dataset.page);
+
+                button.addEventListener('mouseenter', () => {
+                    button.classList.add('hovered');
+                    if (index > 0) {
+                        traces[index - 1].element.classList.add('hovered');
+                    }
+                    if (index < traces.length) {
+                        traces[index].element.classList.add('hovered');
+                    }
+                });
+
+                button.addEventListener('mouseleave', () => {
+                    button.classList.remove('hovered');
+                    if (index > 0) {
+                        traces[index - 1].element.classList.remove('hovered');
+                    }
+                    if (index < traces.length) {
+                        traces[index].element.classList.remove('hovered');
+                    }
+                });
+            });
+
+            const updateActiveNode = () => {
+                nodeElements.forEach(wrapper => {
+                    const button = wrapper.querySelector('.circuit-node');
+                    const isActive = appState.currentPage === button.dataset.page;
+                    button.classList.toggle('active', isActive);
+
+                    const index = navItemsData.findIndex(item => item.page === button.dataset.page);
+                    if (isActive) {
+                        if (index > 0) {
+                            traces[index - 1].element.classList.add('active');
+                        }
+                        if (index < traces.length) {
+                            traces[index].element.classList.add('active');
+                        }
+                    } else {
+                        if (index > 0) {
+                            traces[index - 1].element.classList.remove('active');
+                        }
+                        if (index < traces.length) {
+                            traces[index].element.classList.remove('active');
+                        }
+                    }
+                });
+            };
+
+            updateActiveNode();
+            return updateActiveNode;
+        }
+
+        // --- Three.js Hero Text Effect Logic ---
+        function initHeroTextEffect(containerId, textContent) {
+            const container = document.getElementById(containerId);
+            if (!container) {
+                console.error(`HeroTextEffect: Container with ID '${containerId}' not found.`);
+                return;
+            }
+
+            let scene, camera, renderer, quad;
+            let vMouse = new THREE.Vector2();
+            let vMouseDamp = new THREE.Vector2();
+            let vResolution = new THREE.Vector2();
+            let textTexture;
+            let offscreenCanvas;
+
+            const pixelRatio = Math.min(window.devicePixelRatio, 2);
+
+            // GLSL Shaders adapted for text
+            const vertexShader = `
+                varying vec2 v_texcoord;
+                void main() {
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                    v_texcoord = uv;
+                }
+            `;
+
+            const fragmentShader = `
+                varying vec2 v_texcoord;
+
+                uniform sampler2D u_textTexture;
+                uniform vec2 u_mouse;
+                uniform vec2 u_resolution;
+                uniform float u_pixelRatio;
+
+                uniform float u_circleSize;
+                uniform float u_circleEdge;
+
+                #ifndef PI
+                #define PI 3.1415926535897932384626433832795
+                #endif
+
+                vec2 coord(in vec2 p) {
+                    p = p / u_resolution.xy;
+                    if (u_resolution.x > u_resolution.y) {
+                        p.x *= u_resolution.x / u_resolution.y;
+                        p.x += (u_resolution.y - u_resolution.x) / u_resolution.y / 2.0;
+                    } else {
+                        p.y *= u_resolution.y / u_resolution.x;
+                        p.y += (u_resolution.x - u_resolution.y) / u_resolution.x / 2.0;
+                    }
+                    p -= 0.5;
+                    p *= vec2(-1.0, 1.0);
+                    return p;
+                }
+
+                float sdCircle(in vec2 st, in vec2 center) {
+                    return length(st - center) * 2.0;
+                }
+                float fill(float x, float size, float edge) {
+                    return 1.0 - smoothstep(size - edge, size + edge, x);
+                }
+
+                void main() {
+                    vec2 st = coord(gl_FragCoord.xy) + 0.5;
+                    vec2 posMouse = coord(u_mouse * u_pixelRatio) * vec2(1., -1.) + 0.5;
+                    
+                    vec4 textSample = texture2D(u_textTexture, v_texcoord);
+                    float textAlpha = textSample.a;
+
+                    float mouseEffect = fill(
+                        sdCircle(st, posMouse),
+                        u_circleSize,
+                        u_circleEdge
+                    );
+
+                    float finalAlpha = textAlpha + mouseEffect * textAlpha * 0.5;
+
+                    vec3 glowColor = vec3(0.0, 0.9, 0.0);
+
+                    vec3 finalColor = mix(vec3(0.0), glowColor, finalAlpha);
+
+                    gl_FragColor = vec4(finalColor, finalAlpha);
+                }
+            `;
+
+            function drawTextToCanvas(text, canvas) {
+                const ctx = canvas.getContext('2d');
+                const fontSize = 60;
+                const fontFamily = 'Inter';
+                
+                canvas.width = container.clientWidth * pixelRatio;
+                canvas.height = container.clientHeight * pixelRatio;
+                
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.font = `${fontSize * pixelRatio}px ${fontFamily}`;
+                ctx.fillStyle = 'white';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                
+                const x = canvas.width / 2;
+                const y = canvas.height / 2;
+                
+                ctx.fillText(text, x, y);
+
+                if (textTexture) {
+                    textTexture.needsUpdate = true;
+                } else {
+                    textTexture = new THREE.CanvasTexture(canvas);
+                    textTexture.minFilter = THREE.LinearFilter;
+                    textTexture.magFilter = THREE.LinearFilter;
+                    textTexture.wrapS = THREE.ClampToEdgeWrapping;
+                    textTexture.wrapT = THREE.ClampToEdgeWrapping;
+                }
+            }
+
+            function setupScene() {
+                scene = new THREE.Scene();
+                camera = new THREE.OrthographicCamera();
+                camera.position.z = 1;
+
+                renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+                renderer.setClearColor(0x000000, 0);
+                container.appendChild(renderer.domElement);
+
+                offscreenCanvas = document.createElement('canvas');
+                drawTextToCanvas(textContent, offscreenCanvas);
+
+                const material = new THREE.ShaderMaterial({
+                    vertexShader,
+                    fragmentShader,
+                    uniforms: {
+                        u_mouse: { value: vMouseDamp },
+                        u_resolution: { value: vResolution },
+                        u_pixelRatio: { value: pixelRatio },
+                        u_textTexture: { value: textTexture },
+                        u_circleSize: { value: 0.2 },
+                        u_circleEdge: { value: 0.4 }
+                    },
+                    transparent: true,
+                    blending: THREE.AdditiveBlending
+                });
+
+                const geometry = new THREE.PlaneGeometry(1, 1);
+                quad = new THREE.Mesh(geometry, material);
+                scene.add(quad);
+            }
+
+            let animationFrameId;
+            let lastTime = performance.now();
+
+            function animate() {
+                animationFrameId = requestAnimationFrame(animate);
+
+                const t = performance.now();
+                const dt = (t - lastTime) * 0.001;
+                lastTime = t;
+
+                vMouseDamp.x = THREE.MathUtils.damp(vMouseDamp.x, vMouse.x, 8, dt);
+                vMouseDamp.y = THREE.MathUtils.damp(vMouseDamp.y, vMouse.y, 8, dt);
+
+                renderer.render(scene, camera);
+            }
+
+            function onPointerMove(event) {
+                const rect = container.getBoundingClientRect();
+                vMouse.set(event.clientX - rect.left, event.clientY - rect.top);
+            }
+
+            function onWindowResize() {
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+                const dpr = Math.min(window.devicePixelRatio, 2);
+
+                renderer.setSize(width, height);
+                renderer.setPixelRatio(dpr);
+
+                camera.left = -width / 2;
+                camera.right = width / 2;
+                camera.top = height / 2;
+                camera.bottom = -height / 2;
+                camera.updateProjectionMatrix();
+
+                quad.scale.set(width, height, 1);
+                vResolution.set(width, height).multiplyScalar(dpr);
+                quad.material.uniforms.u_pixelRatio.value = dpr;
+
+                drawTextToCanvas(textContent, offscreenCanvas);
+            }
+
+            setupScene();
+            animate();
+            window.addEventListener('resize', onWindowResize);
+            container.addEventListener('mousemove', onPointerMove);
+            container.addEventListener('touchmove', onPointerMove, { passive: false });
+
+            onWindowResize(); // Initial resize call
+
+            return () => {
+                cancelAnimationFrame(animationFrameId);
+                window.removeEventListener('resize', onWindowResize);
+                container.removeEventListener('mousemove', onPointerMove);
+                container.removeEventListener('touchmove', onPointerMove);
+                if (container.contains(renderer.domElement)) {
+                    container.removeChild(renderer.domElement);
+                }
+                if (quad) {
+                    quad.geometry.dispose();
+                    quad.material.dispose();
+                }
+                if (textTexture) {
+                    textTexture.dispose();
+                }
+                if (renderer) {
+                    renderer.dispose();
+                }
+            };
+        }
+
+        // --- Stepper Logic (Vanilla JS adaptation) ---
+        function initStepper(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) {
+                console.error(`Stepper: Container with ID '${containerId}' not found.`);
+                return;
+            }
+
+            const stepsData = [
+                {
+                    title: "Your Info",
+                    content: `
+                        <div class="space-y-4">
+                            <input type="text" placeholder="Your Name" class="w-full p-3 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <input type="email" placeholder="Your Email" class="w-full p-3 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                    `
+                },
+                {
+                    title: "Your Message",
+                    content: `
+                        <div class="space-y-4">
+                            <input type="text" placeholder="Subject" class="w-full p-3 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500">
+                            <textarea placeholder="Your Message" rows="5" class="w-full p-3 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500"></textarea>
+                        </div>
+                    `
+                },
+                {
+                    title: "Confirmation",
+                    content: `
+                        <div class="text-center py-8">
+                            <p class="text-lg text-green-400 font-semibold mb-4">Thank you for your message!</p>
+                            <p class="text-gray-300">We will get back to you as soon as possible.</p>
+                            <p class="text-gray-500 text-sm mt-2">You can now close this form or navigate away.</p>
+                        </div>
+                    `
+                }
+            ];
+            const totalSteps = stepsData.length;
+
+            let stepperCurrentStep = appState.stepperCurrentStep;
+            let stepperDirection = appState.stepperDirection;
+
+            const renderStepper = () => {
+                const isCompleted = stepperCurrentStep > totalSteps;
+                const isLastStep = stepperCurrentStep === totalSteps;
+
+                // Build Step Indicators
+                const stepIndicatorsHtml = stepsData.map((step, index) => {
+                    const stepNumber = index + 1;
+                    const status = stepperCurrentStep === stepNumber ? "active" : stepperCurrentStep < stepNumber ? "inactive" : "complete";
+                    const isNotLastStep = index < totalSteps - 1;
+
+                    return `
+                        <div class="stepper-step-indicator ${status}" data-step="${stepNumber}">
+                            <div class="stepper-step-indicator-inner">
+                                ${status === "complete" ? `<svg class="stepper-check-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>` : status === "active" ? `<div class="stepper-active-dot"></div>` : `<span class="stepper-step-number">${stepNumber}</span>`}
+                            </div>
+                        </div>
+                        ${isNotLastStep ? `<div class="stepper-step-connector ${stepperCurrentStep > stepNumber ? 'complete' : ''}"><div class="stepper-step-connector-inner"></div></div>` : ''}
+                    `;
+                }).join('');
+
+                // Build Step Content
+                const currentStepContentHtml = isCompleted ? '' : stepsData[stepperCurrentStep - 1].content;
+
+                // Build Footer
+                const footerHtml = !isCompleted ? `
+                    <div class="stepper-footer-container">
+                        <div class="stepper-footer-nav ${stepperCurrentStep !== 1 ? "spread" : "end"}">
+                            ${stepperCurrentStep !== 1 ? `<button id="stepper-back-btn" class="stepper-button stepper-back-button">Back</button>` : ''}
+                            <button id="stepper-next-btn" class="stepper-button stepper-next-button">
+                                ${isLastStep ? "Complete" : "Continue"}
+                            </button>
+                        </div>
+                    </div>
+                ` : '';
+
+                container.innerHTML = `
+                    <div class="stepper-step-circle-container">
+                        <div class="stepper-step-indicator-row">
+                            ${stepIndicatorsHtml}
+                        </div>
+                        <div id="stepper-content-wrapper" class="stepper-step-content-wrapper">
+                            <div id="stepper-current-step-content" class="stepper-step-content">
+                                ${currentStepContentHtml}
+                            </div>
+                        </div>
+                        ${footerHtml}
+                    </div>
+                `;
+
+                // Attach Event Listeners
+                container.querySelectorAll('.stepper-step-indicator').forEach(indicator => {
+                    indicator.onclick = (e) => {
+                        const clickedStep = parseInt(e.currentTarget.dataset.step);
+                        if (clickedStep !== stepperCurrentStep) {
+                            stepperDirection = clickedStep > stepperCurrentStep ? 1 : -1;
+                            stepperCurrentStep = clickedStep;
+                            appState.stepperCurrentStep = stepperCurrentStep;
+                            appState.stepperDirection = stepperDirection;
+                            renderStepper();
+                        }
+                    };
+                });
+
+                const backBtn = document.getElementById('stepper-back-btn');
+                if (backBtn) {
+                    backBtn.onclick = () => {
+                        if (stepperCurrentStep > 1) {
+                            stepperDirection = -1;
+                            stepperCurrentStep--;
+                            appState.stepperCurrentStep = stepperCurrentStep;
+                            appState.stepperDirection = stepperDirection;
+                            renderStepper();
+                        }
+                    };
+                }
+
+                const nextBtn = document.getElementById('stepper-next-btn');
+                if (nextBtn) {
+                    nextBtn.onclick = () => {
+                        if (!isLastStep) {
+                            stepperDirection = 1;
+                            stepperCurrentStep++;
+                            appState.stepperCurrentStep = stepperCurrentStep;
+                            appState.stepperDirection = stepperDirection;
+                            renderStepper();
+                        } else {
+                            stepperDirection = 1;
+                            stepperCurrentStep++;
+                            appState.stepperCurrentStep = stepperCurrentStep;
+                            appState.stepperDirection = stepperDirection;
+                            renderStepper();
+                        }
+                    };
+                }
+
+                const contentWrapper = document.getElementById('stepper-content-wrapper');
+                const currentContentDiv = document.getElementById('stepper-current-step-content');
+
+                if (contentWrapper && currentContentDiv) {
+                    currentContentDiv.classList.remove('enter-right', 'enter-left', 'exit-right', 'exit-left', 'center');
+                    if (stepperDirection === 1) {
+                        currentContentDiv.classList.add('enter-right');
+                        setTimeout(() => {
+                            currentContentDiv.classList.remove('enter-right');
+                            currentContentDiv.classList.add('center');
+                        }, 50);
+                    } else if (stepperDirection === -1) {
+                        currentContentDiv.classList.add('enter-left');
+                        setTimeout(() => {
+                            currentContentDiv.classList.remove('enter-left');
+                            currentContentDiv.classList.add('center');
+                        }, 50);
+                    } else {
+                        currentContentDiv.classList.add('center');
+                    }
+
+                    setTimeout(() => {
+                        if (currentContentDiv.offsetHeight > 0) {
+                            contentWrapper.style.height = `${currentContentDiv.offsetHeight}px`;
+                        } else if (isCompleted) {
+                            contentWrapper.style.height = '0px';
+                        }
+                    }, 100);
+                }
+            };
+
+            renderStepper();
+            return renderStepper;
+        }
+
+
+        // --- Tasbeeh Counter Logic (Vanilla JS adaptation) ---
+        function initTasbeehCounter(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) {
+                console.error(`TasbeehCounter: Container with ID '${containerId}' not found.`);
+                return;
+            }
+
+            let tasbeehCount = appState.tasbeehCount;
+            const fontSize = 48;
+            const height = fontSize * 1.2;
+
+            const renderCounter = () => {
+                const countString = String(tasbeehCount).padStart(3, '0');
+                const digitsHtml = countString.split('').map(digitChar => {
+                    const digitValue = parseInt(digitChar);
+                    const translateY = -digitValue * height;
+                    return `
+                        <div class="tasbeeh-digit-wrapper" style="height: ${height}px; width: ${fontSize * 0.7}px;">
+                            <div class="tasbeeh-digit-numbers" style="transform: translateY(${translateY}px);">
+                                ${Array.from({ length: 10 }, (_, i) => `<span class="tasbeeh-digit-number" style="height: ${height}px;">${i}</span>`).join('')}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                container.innerHTML = `
+                    <div class="tasbeeh-display" style="font-size: ${fontSize}px;">
+                        ${digitsHtml}
+                    </div>
+                    <div class="tasbeeh-buttons">
+                        <button id="tasbeeh-count-btn" class="tasbeeh-button">Count</button>
+                        <button id="tasbeeh-reset-btn" class="tasbeeh-button tasbeeh-reset-button">Reset</button>
+                    </div>
+                `;
+
+                document.getElementById('tasbeeh-count-btn').onclick = () => {
+                    tasbeehCount++;
+                    appState.tasbeehCount = tasbeehCount;
+                    renderCounter();
+                };
+
+                document.getElementById('tasbeeh-reset-btn').onclick = () => {
+                    tasbeehCount = 0;
+                    appState.tasbeehCount = tasbeehCount;
+                    renderCounter();
+                };
+            };
+
+            renderCounter();
+            return renderCounter;
+        }
+
+        // --- Card Swiper Logic (New) ---
+        function initCardSwiper(containerId, autoplayInterval = 5000) { // Added autoplayInterval parameter
+            const container = document.getElementById(containerId);
+            if (!container) {
+                console.error(`CardSwiper: Container with ID '${containerId}' not found.`);
+                return;
+            }
+
+            const projectData = [
+                {
+                    title: "AI Chatbot Platform",
+                    description: "Developed a scalable AI chatbot platform using Gemini API for enhanced customer support and lead generation.",
+                    image: "https://placehold.co/300x200/00E600/1A1A1A?text=AI+Chatbot",
+                    link: "#"
+                },
+                {
+                    title: "Quantum Computing Simulator",
+                    description: "Built a basic quantum circuit simulator visualizing qubit states and entanglement using Three.js.",
+                    image: "https://placehold.co/300x200/90EE90/1A1A1A?text=Quantum+Sim",
+                    link: "#"
+                },
+                {
+                    title: "Decentralized Identity System",
+                    description: "Prototyped a blockchain-based decentralized identity management system for secure user authentication.",
+                    image: "https://placehold.co/300x200/00CC00/1A1A1A?text=Decentralized+ID",
+                    link: "#"
+                },
+                {
+                    title: "Smart Home Automation",
+                    description: "Designed and implemented a smart home system with voice control and IoT device integration.",
+                    image: "https://placehold.co/300x200/00A000/1A1A1A?text=Smart+Home",
+                    link: "#"
+                }
+            ];
+
+            let currentCardIndex = appState.currentCardIndex;
+            const totalCards = projectData.length;
+
+            const startAutoplay = () => {
+                if (appState.swiperAutoplayInterval) {
+                    clearInterval(appState.swiperAutoplayInterval);
+                }
+                appState.swiperAutoplayInterval = setInterval(showNextCard, autoplayInterval);
+            };
+
+            const stopAutoplay = () => {
+                if (appState.swiperAutoplayInterval) {
+                    clearInterval(appState.swiperAutoplayInterval);
+                    appState.swiperAutoplayInterval = null;
+                }
+            };
+
+            const renderCards = () => {
+                container.innerHTML = ''; // Clear existing cards
+
+                // Add navigation buttons
+                container.innerHTML = `
+                    <button id="swiper-prev-btn" class="swiper-nav-button left">&#10094;</button>
+                    <button id="swiper-next-btn" class="swiper-nav-button right">&#10095;</button>
+                    <div id="swiper-dots" class="swiper-dots-container"></div>
+                `;
+
+                projectData.forEach((project, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'swiper-card';
+                    card.innerHTML = `
+                        <img src="${project.image}" alt="${project.title}" class="swiper-card-image" onerror="this.onerror=null;this.src='https://placehold.co/300x200/CCCCCC/000000?text=Image+Error';">
+                        <h3 class="swiper-card-title">${project.title}</h3>
+                        <p class="swiper-card-description">${project.description}</p>
+                        <a href="${project.link}" class="swiper-card-link" target="_blank" rel="noopener noreferrer">View Project</a>
+                    `;
+                    container.appendChild(card);
+                });
+
+                updateCardPositions();
+                updateDots();
+
+                // Attach event listeners to buttons
+                const prevBtn = document.getElementById('swiper-prev-btn');
+                const nextBtn = document.getElementById('swiper-next-btn');
+                
+                prevBtn.onclick = () => { stopAutoplay(); showPrevCard(); };
+                nextBtn.onclick = () => { stopAutoplay(); showNextCard(); };
+
+                // Add event listeners to dots
+                const dotsContainer = document.getElementById('swiper-dots');
+                dotsContainer.querySelectorAll('.swiper-dot').forEach((dot, index) => {
+                    dot.onclick = () => {
+                        stopAutoplay();
+                        currentCardIndex = index;
+                        appState.currentCardIndex = currentCardIndex;
+                        updateCardPositions();
+                        updateDots();
+                    };
+                });
+
+                startAutoplay(); // Start autoplay after rendering
+            };
+
+            const updateCardPositions = () => {
+                const cards = Array.from(container.querySelectorAll('.swiper-card'));
+                cards.forEach((card, index) => {
+                    card.classList.remove('active', 'prev', 'next', 'hidden');
+
+                    if (index === currentCardIndex) {
+                        card.classList.add('active');
+                    } else if (index === (currentCardIndex - 1 + totalCards) % totalCards) {
+                        card.classList.add('prev');
+                    } else if (index === (currentCardIndex + 1) % totalCards) {
+                        card.classList.add('next');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            };
+
+            const updateDots = () => {
+                const dotsContainer = document.getElementById('swiper-dots');
+                if (!dotsContainer) return;
+
+                dotsContainer.innerHTML = ''; // Clear existing dots
+                for (let i = 0; i < totalCards; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = `swiper-dot ${i === currentCardIndex ? 'active' : ''}`;
+                    dot.dataset.index = i;
+                    dotsContainer.appendChild(dot);
+                }
+            };
+
+            const showNextCard = () => {
+                currentCardIndex = (currentCardIndex + 1) % totalCards;
+                appState.currentCardIndex = currentCardIndex;
+                updateCardPositions();
+                updateDots();
+            };
+
+            const showPrevCard = () => {
+                currentCardIndex = (currentCardIndex - 1 + totalCards) % totalCards;
+                appState.currentCardIndex = currentCardIndex;
+                updateCardPositions();
+                updateDots();
+            };
+
+            renderCards();
+            return () => {
+                stopAutoplay(); // Cleanup autoplay interval
+            };
+        }
+
+
+        // --- Page Content Functions ---
+        function getHomePageHtml() {
+            return `
+                <section class="text-center py-16 md:py-24 animate-fade-in">
+                    <div id="hero-text-effect-container" class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-green-400 mb-4">
+                        <!-- Three.js canvas for text effect will be injected here -->
+                    </div>
+                    <div id="rotating-tagline-container" class="rotating-tagline-container text-lg md:text-xl max-w-3xl mx-auto">
+                        <!-- Rotating taglines will be rendered here by JavaScript -->
+                    </div>
+                    <div class="mt-8 flex justify-center space-x-4">
+                        <a href="#projects-swiper-section" class="btn-glow py-3 px-6 rounded-lg shadow-lg font-bold transition-transform transform hover:scale-105">
+                            My Projects
+                        </a>
+                        <a href="#contact-stepper-section" class="btn-glow py-3 px-6 rounded-lg shadow-lg font-bold transition-transform transform hover:scale-105">
+                            Contact Me
+                        </a>
+                    </div>
+
+                    <!-- My Projects Section with Card Swiper -->
+                    <section id="projects-swiper-section" class="py-16">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center">My Projects</h2>
+                        <div id="projects-swiper-container" class="projects-swiper-container">
+                            <!-- Cards and buttons will be injected here by JavaScript -->
+                        </div>
+                    </section>
+
+                    <!-- New Stepper Section -->
+                    <section id="contact-stepper-section" class="py-16">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center">Get in Touch</h2>
+                        <div id="contact-stepper-container" class="stepper-outer-container">
+                            <!-- Stepper will be injected here by JavaScript -->
+                        </div>
+                    </section>
+
+                    <!-- New Tasbeeh Counter Section -->
+                    <section class="py-16">
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center">Digital Tasbeeh Counter</h2>
+                        <div id="tasbeeh-counter-container" class="tasbeeh-container">
+                            <!-- Tasbeeh Counter will be injected here by JavaScript -->
+                        </div>
+                    </section>
+                </section>
+            `;
+        }
+
+        function getNewsPageHtml() {
+            const newsContent = appState.newsArticles.length > 0
+                ? appState.newsArticles.map(article => getNewsCardHtml(article.title, article.date, article.description, article.link || '#')).join('')
+                : `<div class="col-span-full text-center text-gray-400 p-4 border border-dashed border-gray-700 rounded-lg">
+                    ${appState.isLoadingNews ? 'Generating AI news...' : 'No news articles available. Cl
