@@ -11,31 +11,12 @@
     <!-- Three.js CDN for 3D particles -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-        /* Global Styles */
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
             overflow-x: hidden;
             background-color: #1A1A1A; /* Deep Charcoal Background */
             color: #F0F0F0; /* Soft White Text */
-            scroll-behavior: smooth; /* Smooth scrolling for anchor links */
-        }
-
-        /* Custom Scrollbar Styling */
-        body::-webkit-scrollbar {
-            width: 8px;
-        }
-        body::-webkit-scrollbar-track {
-            background: #2A2A2A; /* Darker track */
-            border-radius: 10px;
-        }
-        body::-webkit-scrollbar-thumb {
-            background-color: #00E600; /* Electric Green thumb */
-            border-radius: 10px;
-            border: 2px solid #2A2A2A;
-        }
-        body::-webkit-scrollbar-thumb:hover {
-            background-color: #00CC00; /* Slightly darker green on hover */
         }
 
         /* Container for the 3D particles background */
@@ -65,7 +46,7 @@
             animation: fadeIn 0.5s ease-out forwards;
         }
 
-        /* Typing Effect for Hero Title (No longer used for hero text, but kept for reference) */
+        /* Typing Effect for Hero Title (Removed, but keeping class for reference if needed) */
         .typing-text {
             display: inline-block;
             white-space: nowrap;
@@ -117,35 +98,28 @@
             overflow: hidden;
             background-color: #00E600; /* Electric Green */
             color: #1A1A1A; /* Dark text on bright button */
-            transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Subtle text shadow */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
         .btn-glow:hover {
             background-color: #00CC00; /* Slightly darker green on hover */
-            box-shadow: 0 0 20px rgba(0, 230, 0, 0.8), 0 0 30px rgba(0, 230, 0, 0.6); /* Stronger green glow */
-            transform: translateY(-2px); /* Slight lift on hover */
-        }
-        .btn-glow:active {
-            transform: translateY(0); /* Press down effect */
+            box-shadow: 0 0 15px rgba(0, 230, 0, 0.6); /* Green glow */
         }
 
-        /* Card Glow Effect */
+        /* Card Hover Effect */
         .card-glow {
             background-color: #2A2A2A; /* Slightly lighter dark gray */
             border: 1px solid #3A3A3A; /* Subtle border */
-            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Initial subtle shadow */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
         .card-glow:hover {
             border-color: #00E600; /* Green border on hover */
-            box-shadow: 0 0 15px rgba(0, 230, 0, 0.6), 0 0 25px rgba(0, 230, 0, 0.4); /* Stronger green glow */
-            transform: translateY(-5px); /* Lift up effect */
+            box-shadow: 0 0 10px rgba(0, 230, 0, 0.4); /* Green glow */
         }
 
         /* Digital Text Glow Effect for Header Name */
         .digital-text-glow {
-            text-shadow: 0 0 8px rgba(0, 230, 0, 0.8), 0 0 15px rgba(0, 230, 0, 0.6), 0 0 20px rgba(0, 230, 0, 0.4);
-            animation: pulse-glow 3s infinite alternate ease-in-out; /* Slower, smoother pulse */
+            text-shadow: 0 0 5px rgba(0, 230, 0, 0.5), 0 0 10px rgba(0, 230, 0, 0.3);
+            animation: pulse-glow 2s infinite alternate;
         }
 
         @keyframes pulse-glow {
@@ -153,24 +127,21 @@
                 text-shadow: 0 0 5px rgba(0, 230, 0, 0.5), 0 0 10px rgba(0, 230, 0, 0.3);
             }
             to {
-                text-shadow: 0 0 10px rgba(0, 230, 0, 1), 0 0 20px rgba(0, 230, 0, 0.8), 0 0 30px rgba(0, 230, 0, 0.6);
+                text-shadow: 0 0 8px rgba(0, 230, 0, 0.8), 0 0 15px rgba(0, 230, 0, 0.6), 0 0 20px rgba(0, 230, 0, 0.4);
             }
         }
 
         /* --- Circuit Board Header Styles --- */
         .circuit-header {
-            background-color: rgba(15, 15, 15, 0.9); /* Even darker background for header with slight transparency */
-            backdrop-filter: blur(5px); /* Frosted glass effect */
-            -webkit-backdrop-filter: blur(5px); /* Safari support */
+            background-color: #0F0F0F; /* Even darker background for header */
             background-image:
                 linear-gradient(0deg, transparent 95%, rgba(0, 230, 0, 0.05) 100%),
                 linear-gradient(90deg, transparent 95%, rgba(0, 230, 0, 0.05) 100%);
             background-size: 20px 20px; /* Smaller grid for circuit board feel */
             border-bottom: 2px solid #00E600; /* Stronger green border */
-            box-shadow: 0 5px 20px rgba(0, 230, 0, 0.4); /* Stronger green shadow */
-            position: sticky; /* Make header sticky */
-            top: 0;
-            z-index: 100; /* Ensure it's above all content */
+            box-shadow: 0 5px 15px rgba(0, 230, 0, 0.2); /* Green shadow */
+            position: relative;
+            z-index: 50;
             padding: 1.5rem 2rem; /* Increased padding */
             display: flex;
             flex-wrap: wrap;
@@ -209,7 +180,7 @@
             justify-content: center;
             cursor: pointer;
             transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-            box-shadow: 0 0 8px rgba(0, 230, 0, 0.2); /* Subtle initial glow */
+            box-shadow: 0 0 5px rgba(0, 230, 0, 0.1); /* Subtle initial glow */
             border: 1px solid #3A3A3A;
             font-size: 0.85rem; /* Smaller text for nodes */
             font-weight: 600;
@@ -221,19 +192,19 @@
         }
 
         .circuit-node:hover {
-            transform: scale(1.25); /* Magnify more on hover */
+            transform: scale(1.2); /* Magnify on hover */
             background-color: #00E600; /* Bright green on hover */
             color: #1A1A1A; /* Dark text on bright node */
-            box-shadow: 0 0 20px rgba(0, 230, 0, 0.8), 0 0 35px rgba(0, 230, 0, 0.6); /* Stronger glow */
+            box-shadow: 0 0 15px rgba(0, 230, 0, 0.6), 0 0 25px rgba(0, 230, 0, 0.4); /* Stronger glow */
             border-color: #00E600;
         }
 
         .circuit-node.active {
             background-color: #00E600; /* Active node background */
             color: #1A1A1A; /* Dark text for active node */
-            box-shadow: 0 0 25px rgba(0, 230, 0, 1), 0 0 40px rgba(0, 230, 0, 0.8); /* Persistent strong glow */
+            box-shadow: 0 0 20px rgba(0, 230, 0, 0.8), 0 0 30px rgba(0, 230, 0, 0.6); /* Persistent strong glow */
             border-color: #00E600;
-            transform: scale(1.15); /* Slightly magnified when active */
+            transform: scale(1.1); /* Slightly magnified when active */
         }
 
         .circuit-node-label {
@@ -252,7 +223,7 @@
             font-size: 0.8rem;
             font-weight: 700;
             border: 1px solid #00E600;
-            box-shadow: 0 2px 8px rgba(0, 230, 0, 0.5); /* Stronger label shadow */
+            box-shadow: 0 2px 5px rgba(0, 230, 0, 0.3);
         }
 
         .circuit-node-wrapper:hover .circuit-node-label {
@@ -263,18 +234,20 @@
         /* Circuit Traces */
         .circuit-trace {
             position: absolute;
-            background-color: rgba(0, 230, 0, 0.1); /* Subtle trace color */
+            background-color: rgba(0, 230, 0, 0.05); /* Subtle trace color */
             height: 2px; /* Thickness of the trace */
             transition: background-color 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 0 5px rgba(0, 230, 0, 0); /* No initial glow */
+            box-shadow: 0 0 3px rgba(0, 230, 0, 0); /* No initial glow */
             z-index: 5; /* Below nodes */
         }
 
         .circuit-trace.active,
         .circuit-trace.hovered {
-            background-color: rgba(0, 230, 0, 0.6); /* Brighter when active/hovered */
-            box-shadow: 0 0 12px rgba(0, 230, 0, 1); /* Stronger glow */
+            background-color: rgba(0, 230, 0, 0.5); /* Brighter when active/hovered */
+            box-shadow: 0 0 8px rgba(0, 230, 0, 0.8); /* Stronger glow */
         }
+
+        /* Specific trace positioning will be handled by JS */
 
         /* Hero Text Effect Container */
         #hero-text-effect-container {
@@ -301,7 +274,7 @@
             background-color: #2A2A2A;
             border-radius: 1rem;
             padding: 2rem;
-            box-shadow: 0 0 20px rgba(0, 230, 0, 0.4); /* Stronger shadow */
+            box-shadow: 0 0 15px rgba(0, 230, 0, 0.3);
             max-width: 800px;
             margin: 2rem auto;
             border: 1px solid #3A3A3A;
@@ -339,7 +312,7 @@
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
             border: 2px solid #4A4A4A;
             background-color: #222;
             color: #a3a3a3;
@@ -350,14 +323,12 @@
             color: #1A1A1A;
             border-color: #00E600;
             transform: scale(1.1);
-            box-shadow: 0 0 10px rgba(0, 230, 0, 0.7);
         }
 
         .stepper-step-indicator.complete .stepper-step-indicator-inner {
             background-color: #00E600;
             color: #1A1A1A;
             border-color: #00E600;
-            box-shadow: 0 0 5px rgba(0, 230, 0, 0.5);
         }
 
         .stepper-check-icon {
@@ -434,7 +405,7 @@
             border-radius: 0.5rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
         }
 
         .stepper-back-button {
@@ -443,12 +414,10 @@
         }
         .stepper-back-button:hover {
             background-color: #5A5A5A;
-            transform: translateY(-2px);
         }
         .stepper-back-button.inactive {
             opacity: 0.5;
             cursor: not-allowed;
-            transform: none;
         }
 
         .stepper-next-button {
@@ -457,15 +426,7 @@
         }
         .stepper-next-button:hover {
             background-color: #00CC00;
-            box-shadow: 0 0 15px rgba(0, 230, 0, 0.6);
-            transform: translateY(-2px);
-        }
-
-        /* Input field focus glow */
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: #00E600;
-            box-shadow: 0 0 0 3px rgba(0, 230, 0, 0.3);
+            box-shadow: 0 0 10px rgba(0, 230, 0, 0.5);
         }
 
         /* Tasbeeh Counter Styles */
@@ -477,7 +438,7 @@
             padding: 2rem;
             background-color: #2A2A2A;
             border-radius: 1rem;
-            box-shadow: 0 0 20px rgba(0, 230, 0, 0.4); /* Stronger shadow */
+            box-shadow: 0 0 15px rgba(0, 230, 0, 0.3);
             max-width: 400px;
             margin: 2rem auto;
             border: 1px solid #3A3A3A;
@@ -491,10 +452,10 @@
             border-radius: 0.5rem;
             padding: 0.5rem 1rem;
             margin-bottom: 1.5rem;
-            box-shadow: inset 0 0 10px rgba(0, 230, 0, 0.3); /* More pronounced inner shadow */
+            box-shadow: inset 0 0 8px rgba(0, 230, 0, 0.2);
             border: 1px solid #3A3A3A;
             font-family: 'Inter', monospace; /* Monospace for digital feel */
-            font-size: 3.5rem; /* Slightly larger font size for impact */
+            font-size: 3rem; /* Large font size */
             font-weight: bold;
             color: #00E600; /* Electric green for digits */
             line-height: 1em; /* Ensure line height matches font size */
@@ -502,7 +463,7 @@
 
         .tasbeeh-digit-wrapper {
             position: relative;
-            width: 0.7em; /* Slightly wider per digit */
+            width: 0.6em; /* Width per digit, adjust as needed */
             height: 1em; /* Height of a single digit slot */
             overflow: hidden;
         }
@@ -512,7 +473,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            transition: transform 0.2s ease-out; /* Faster rolling animation */
+            transition: transform 0.3s ease-out; /* Smooth rolling animation */
         }
 
         .tasbeeh-digit-number {
@@ -524,7 +485,7 @@
 
         .tasbeeh-buttons {
             display: flex;
-            gap: 1.5rem; /* Increased gap */
+            gap: 1rem;
         }
 
         .tasbeeh-button {
@@ -532,15 +493,14 @@
             border-radius: 0.5rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
             background-color: #00E600;
             color: #1A1A1A;
         }
 
         .tasbeeh-button:hover {
             background-color: #00CC00;
-            box-shadow: 0 0 15px rgba(0, 230, 0, 0.6);
-            transform: translateY(-2px);
+            box-shadow: 0 0 10px rgba(0, 230, 0, 0.5);
         }
 
         .tasbeeh-reset-button {
@@ -549,7 +509,6 @@
         }
         .tasbeeh-reset-button:hover {
             background-color: #5A5A5A;
-            transform: translateY(-2px);
         }
 
         /* Asma-ul-Husna Styles */
@@ -561,7 +520,7 @@
             background-color: #1A1A1A;
             border-radius: 0.75rem;
             border: 1px solid #3A3A3A;
-            box-shadow: 0 0 15px rgba(0, 230, 0, 0.3); /* Stronger shadow */
+            box-shadow: 0 0 10px rgba(0, 230, 0, 0.2);
         }
 
         .asma-ul-husna-item {
@@ -573,42 +532,41 @@
             font-weight: 600;
             color: #90EE90; /* Light green for names */
             border: 1px solid #3A3A3A;
-            transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
         }
 
         .asma-ul-husna-item:hover {
-            transform: translateY(-5px); /* More pronounced lift */
+            transform: translateY(-3px);
             background-color: #3A3A3A;
             border-color: #00E600;
-            box-shadow: 0 0 12px rgba(0, 230, 0, 0.6); /* Stronger glow on hover */
+            box-shadow: 0 0 8px rgba(0, 230, 0, 0.4);
         }
 
         /* Card Swiper Styles (New) */
         .projects-swiper-container {
             position: relative;
             width: 100%;
-            max-width: 650px; /* Slightly wider */
-            height: 450px; /* Slightly taller */
+            max-width: 600px; /* Adjust as needed */
+            height: 400px; /* Adjust as needed */
             margin: 2rem auto;
-            perspective: 1200px; /* More pronounced 3D effect */
+            perspective: 1000px; /* For 3D effect */
             display: flex;
             justify-content: center;
             align-items: center;
-            padding-bottom: 2rem; /* Space for dots */
         }
 
         .swiper-card {
             position: absolute;
-            width: 85%; /* Relative to container */
-            height: 85%; /* Relative to container */
-            border-radius: 16px; /* More rounded corners */
-            border: 2px solid #00E600; /* Thicker green border */
+            width: 80%; /* Relative to container */
+            height: 80%; /* Relative to container */
+            border-radius: 12px;
+            border: 1px solid #00E600; /* Green border */
             background: #1A1A1A; /* Dark background */
             color: #F0F0F0;
-            padding: 2rem; /* More padding */
-            box-shadow: 0 10px 30px rgba(0, 230, 0, 0.5); /* Stronger shadow */
+            padding: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0, 230, 0, 0.3);
             transform-style: preserve-3d;
-            transition: transform 0.7s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.7s ease-out, z-index 0.01s linear 0.3s; /* Smoother, bouncier transition */
+            transition: transform 0.6s ease-out, opacity 0.6s ease-out, z-index 0.01s linear 0.3s; /* z-index transition delay */
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -625,60 +583,57 @@
 
         .swiper-card.prev {
             z-index: 5;
-            opacity: 0.6; /* More faded */
-            transform: translateX(-70%) rotateY(25deg) scale(0.75); /* More pronounced side view */
+            opacity: 0.7;
+            transform: translateX(-60%) rotateY(20deg) scale(0.8);
         }
 
         .swiper-card.next {
             z-index: 5;
-            opacity: 0.6; /* More faded */
-            transform: translateX(70%) rotateY(-25deg) scale(0.75); /* More pronounced side view */
+            opacity: 0.7;
+            transform: translateX(60%) rotateY(-20deg) scale(0.8);
         }
 
         .swiper-card.hidden {
             z-index: 1;
             opacity: 0;
-            transform: translateX(0) rotateY(0deg) scale(0.5); /* Collapse further behind */
+            transform: translateX(0) rotateY(0deg) scale(0.6); /* Collapse behind */
             pointer-events: none; /* Disable interaction when hidden */
         }
 
         .swiper-card-image {
             width: 100%;
-            height: 150px; /* Taller image */
+            height: 120px;
             object-fit: cover;
-            border-radius: 10px; /* More rounded image corners */
-            margin-bottom: 1.5rem; /* More space below image */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            margin-bottom: 1rem;
         }
 
         .swiper-card-title {
-            font-size: 1.75rem; /* Larger title */
+            font-size: 1.5rem;
             font-weight: bold;
             color: #00E600;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
         }
 
         .swiper-card-description {
-            font-size: 1rem; /* Slightly larger description text */
-            color: #C0C0C0; /* Lighter gray for better contrast */
-            flex-grow: 1;
-            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #B0B0B0;
+            flex-grow: 1; /* Allow description to take space */
+            margin-bottom: 1rem;
         }
 
         .swiper-card-link {
             display: inline-block;
-            padding: 0.6rem 1.8rem; /* Larger button */
+            padding: 0.5rem 1rem;
             background-color: #00E600;
             color: #1A1A1A;
-            border-radius: 0.6rem; /* More rounded */
-            font-weight: 700; /* Bolder text */
-            transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
-            text-shadow: 0 0 3px rgba(255, 255, 255, 0.3); /* Subtle text shadow */
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
         .swiper-card-link:hover {
             background-color: #00CC00;
-            box-shadow: 0 0 12px rgba(0, 230, 0, 0.7);
-            transform: translateY(-3px);
+            box-shadow: 0 0 8px rgba(0, 230, 0, 0.4);
         }
 
         /* Navigation buttons for swiper */
@@ -686,115 +641,56 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            padding: 0.8rem 1.2rem; /* Larger buttons */
-            background-color: rgba(0, 230, 0, 0.25); /* More visible semi-transparent green */
+            padding: 0.75rem 1rem;
+            background-color: rgba(0, 230, 0, 0.2); /* Semi-transparent green */
             color: #00E600;
             border-radius: 9999px; /* Full rounded */
-            font-size: 1.75rem; /* Larger arrows */
+            font-size: 1.5rem;
             cursor: pointer;
             z-index: 20;
-            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.3s ease;
             border: 1px solid #00E600;
-            box-shadow: 0 0 10px rgba(0, 230, 0, 0.3);
         }
         .swiper-nav-button:hover {
-            background-color: rgba(0, 230, 0, 0.5);
-            transform: translateY(-50%) scale(1.15); /* More pronounced scale */
-            box-shadow: 0 0 20px rgba(0, 230, 0, 0.8);
+            background-color: rgba(0, 230, 0, 0.4);
+            transform: translateY(-50%) scale(1.1);
         }
         .swiper-nav-button.left {
-            left: -30px; /* Move further out */
+            left: -20px; /* Adjust position */
         }
         .swiper-nav-button.right {
-            right: -30px; /* Move further out */
+            right: -20px; /* Adjust position */
         }
 
-        /* Swiper Dot Indicators */
-        .swiper-dots-container {
-            position: absolute;
-            bottom: 10px; /* Position below the swiper */
-            display: flex;
-            gap: 0.75rem; /* Spacing between dots */
-            z-index: 25; /* Above cards */
-        }
-
-        .swiper-dot {
-            width: 12px; /* Size of dot */
-            height: 12px;
-            border-radius: 50%;
-            background-color: rgba(0, 230, 0, 0.3); /* Subtle green */
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            border: 1px solid rgba(0, 230, 0, 0.5);
-        }
-
-        .swiper-dot.active {
-            background-color: #00E600; /* Bright green when active */
-            transform: scale(1.2); /* Slightly larger when active */
-            box-shadow: 0 0 8px rgba(0, 230, 0, 0.8);
-        }
-
-        /* Responsive adjustments for swiper */
         @media (max-width: 768px) {
-            .projects-swiper-container {
-                max-width: 90%;
-                height: 380px;
-            }
             .swiper-card {
                 width: 90%;
-                height: 80%;
-                padding: 1.5rem;
+                height: 70%;
             }
             .swiper-nav-button {
-                left: 0px;
-                right: 0px;
-                font-size: 1.4rem;
-                padding: 0.6rem 0.8rem;
-            }
-            .swiper-card.prev {
-                transform: translateX(-55%) rotateY(15deg) scale(0.8);
-            }
-            .swiper-card.next {
-                transform: translateX(55%) rotateY(-15deg) scale(0.8);
+                left: 5px;
+                right: 5px;
+                font-size: 1.2rem;
             }
         }
 
         @media (max-width: 480px) {
-            .projects-swiper-container {
-                height: 320px;
-            }
             .swiper-card {
                 width: 95%;
-                height: 85%;
+                height: 60%;
                 padding: 1rem;
             }
-            .swiper-card-image {
-                height: 100px;
-                margin-bottom: 1rem;
-            }
             .swiper-card-title {
-                font-size: 1.3rem;
-                margin-bottom: 0.4rem;
+                font-size: 1.2rem;
             }
             .swiper-card-description {
-                font-size: 0.85rem;
-                margin-bottom: 1rem;
-            }
-            .swiper-card-link {
-                padding: 0.4rem 1.2rem;
-                font-size: 0.9rem;
+                font-size: 0.8rem;
             }
             .swiper-nav-button {
-                font-size: 1.2rem;
-                padding: 0.4rem 0.6rem;
-            }
-            .swiper-dots-container {
-                bottom: 5px;
-                gap: 0.5rem;
-            }
-            .swiper-dot {
-                width: 10px;
-                height: 10px;
+                left: 0;
+                right: 0;
+                font-size: 1rem;
+                padding: 0.5rem 0.75rem;
             }
         }
     </style>
@@ -842,8 +738,7 @@
             // Tasbeeh Counter state
             tasbeehCount: 0,
             // Card Swiper state
-            currentCardIndex: 0,
-            swiperAutoplayInterval: null // To store the autoplay interval ID
+            currentCardIndex: 0
         };
 
         // --- Typing Effect Logic (No longer used for hero text, but kept for reference) ---
@@ -920,8 +815,7 @@
                 }, 500); // Match CSS transition duration
             };
 
-            const intervalId = setInterval(updateText, interval);
-            return () => clearInterval(intervalId); // Return cleanup function
+            setInterval(updateText, interval);
         }
 
         // --- Three.js Particles Background Logic ---
@@ -934,18 +828,19 @@
 
             let scene, camera, renderer, particles;
             let mouseX = 0, mouseY = 0;
+            let targetRotationX = 0, targetRotationY = 0;
             const windowHalfX = window.innerWidth / 2;
             const windowHalfY = window.innerHeight / 2;
 
             const defaultParticleOptions = {
-                particleCount: 2000,
+                particleCount: 2000, // Increased particle count for density
                 particleSpread: 10,
                 speed: 0.1,
-                particleColors: ["#00E600", "#90EE90", "#1A1A1A"],
+                particleColors: ["#00E600", "#90EE90", "#1A1A1A"], // Electric green, light green, charcoal
                 moveParticlesOnHover: true,
-                particleHoverFactor: 0.5,
-                alphaParticles: true,
-                particleBaseSize: 2,
+                particleHoverFactor: 0.5, // Reduced sensitivity
+                alphaParticles: true, // Use alpha blending for glow
+                particleBaseSize: 2, // Smaller base size for finer particles
                 sizeRandomness: 1,
                 cameraDistance: 20,
                 disableRotation: false,
@@ -969,16 +864,19 @@
                     vRandom = random;
                     vColor = color;
 
+                    // Three.js provides 'position', 'modelMatrix', 'viewMatrix', 'projectionMatrix' automatically
                     vec3 pos = position * uSpread;
-                    pos.z *= 10.0;
+                    pos.z *= 10.0; // Extend depth
 
                     vec4 mPos = modelMatrix * vec4(pos, 1.0);
                     float t = uTime;
+                    // Apply subtle movement based on random attributes
                     mPos.x += sin(t * random.z + 6.28 * random.w) * mix(0.1, 1.5, random.x);
                     mPos.y += sin(t * random.y + 6.28 * random.x) * mix(0.1, 1.5, random.w);
                     mPos.z += sin(t * random.w + 6.28 * random.y) * mix(0.1, 1.5, random.z);
 
                     vec4 mvPos = viewMatrix * mPos;
+                    // Calculate point size based on distance from camera and randomness
                     gl_PointSize = (uBaseSize * (1.0 + uSizeRandomness * (random.x - 0.5))) / length(mvPos.xyz);
                     gl_Position = projectionMatrix * mvPos;
                 }
@@ -993,16 +891,18 @@
                 varying vec3 vColor;
 
                 void main() {
-                    vec2 uv = gl_PointCoord.xy;
-                    float d = length(uv - vec2(0.5));
+                    vec2 uv = gl_PointCoord.xy; // UV coordinates within the point (0 to 1)
+                    float d = length(uv - vec2(0.5)); // Distance from center of the point
 
                     if(uAlphaParticles < 0.5) {
+                        // If alpha is disabled, discard outside a circle
                         if(d > 0.5) {
                             discard;
                         }
                         gl_FragColor = vec4(vColor + 0.2 * sin(uv.yxx + uTime + vRandom.y * 6.28), 1.0);
                     } else {
-                        float circle = smoothstep(0.5, 0.4, d) * 0.8;
+                        // Create a soft circular glow with alpha blending
+                        float circle = smoothstep(0.5, 0.4, d) * 0.8; // Smooth falloff for glow
                         gl_FragColor = vec4(vColor + 0.2 * sin(uv.yxx + uTime + vRandom.y * 6.28), circle);
                     }
                 }
@@ -1017,8 +917,9 @@
                 renderer.setPixelRatio(window.devicePixelRatio);
                 renderer.setSize(window.innerWidth, window.innerHeight);
                 container.appendChild(renderer.domElement);
-                renderer.setClearColor(0x000000, 0);
+                renderer.setClearColor(0x000000, 0); // Transparent clear color
 
+                // Create particle geometry
                 const positions = new Float32Array(config.particleCount * 3);
                 const randoms = new Float32Array(config.particleCount * 4);
                 const colors = new Float32Array(config.particleCount * 3);
@@ -1044,8 +945,8 @@
                         y = Math.random() * 2 - 1;
                         z = Math.random() * 2 - 1;
                         len = x * x + y * y + z * z;
-                    } while (len > 1 || len === 0);
-                    const r = Math.cbrt(Math.random());
+                    } while (len > 1 || len === 0); // Ensure points are within a sphere and not at origin
+                    const r = Math.cbrt(Math.random()); // Distribute points more evenly in sphere
                     positions.set([x * r, y * r, z * r], i * 3);
                     randoms.set([Math.random(), Math.random(), Math.random(), Math.random()], i * 4);
                     const col = palette[Math.floor(Math.random() * palette.length)];
@@ -1069,7 +970,7 @@
                     fragmentShader: fragmentShader,
                     transparent: true,
                     depthTest: false,
-                    blending: THREE.AdditiveBlending,
+                    blending: THREE.AdditiveBlending, // For glowing effect
                 });
 
                 particles = new THREE.Points(geometry, material);
@@ -1101,7 +1002,7 @@
                 if (!config.disableRotation) {
                     particles.rotation.x += Math.sin(elapsed * 0.00002) * 0.0001;
                     particles.rotation.y += Math.cos(elapsed * 0.00005) * 0.00015;
-                    particles.rotation.z += 0.00001 * config.speed;
+                    particles.rotation.z += 0.00001 * config.speed; // Slower rotation
                 }
 
                 renderer.render(scene, camera);
@@ -1116,12 +1017,12 @@
             }
 
             function onMouseMove(event) {
-                mouseX = (event.clientX - windowHalfX) / windowHalfX;
-                mouseY = (event.clientY - windowHalfY) / windowHalfY;
+                mouseX = (event.clientX - windowHalfX) / windowHalfX; // Normalized -1 to 1
+                mouseY = (event.clientY - windowHalfY) / windowHalfY; // Normalized -1 to 1
             }
 
             function onTouchMove(event) {
-                event.preventDefault();
+                event.preventDefault(); // Prevent scrolling
                 const touch = event.touches[0];
                 mouseX = (touch.clientX - windowHalfX) / windowHalfX;
                 mouseY = (touch.clientY - windowHalfY) / windowHalfY;
@@ -1133,6 +1034,7 @@
             document.addEventListener('mousemove', onMouseMove);
             document.addEventListener('touchmove', onTouchMove, { passive: false });
 
+            // Cleanup function
             return () => {
                 cancelAnimationFrame(animationFrameId);
                 window.removeEventListener('resize', onWindowResize);
@@ -1141,6 +1043,7 @@
                 if (container.contains(renderer.domElement)) {
                     container.removeChild(renderer.domElement);
                 }
+                // Dispose Three.js resources
                 if (particles) {
                     particles.geometry.dispose();
                     particles.material.dispose();
@@ -1168,8 +1071,10 @@
                 { name: 'Hub', page: 'knowledge' }
             ];
 
+            // Clear existing content
             container.innerHTML = '';
 
+            // Create node wrappers and nodes
             const nodeElements = navItemsData.map(item => {
                 const wrapper = document.createElement('div');
                 wrapper.className = 'circuit-node-wrapper';
@@ -1182,7 +1087,7 @@
                 const button = document.createElement('button');
                 button.className = `circuit-node`;
                 button.dataset.page = item.page;
-                button.textContent = item.name;
+                button.textContent = item.name; // Text inside the node
                 wrapper.appendChild(button);
 
                 return wrapper;
@@ -1190,6 +1095,7 @@
 
             nodeElements.forEach(node => container.appendChild(node));
 
+            // Create traces between nodes
             const traces = [];
             for (let i = 0; i < nodeElements.length - 1; i++) {
                 const node1 = nodeElements[i].querySelector('.circuit-node');
@@ -1197,41 +1103,45 @@
 
                 const trace = document.createElement('div');
                 trace.className = 'circuit-trace';
-                container.appendChild(trace);
+                container.appendChild(trace); // Append to the same container as nodes
                 traces.push({ element: trace, node1: node1, node2: node2 });
             }
 
             const updateTracesPosition = () => {
-                const navRect = container.getBoundingClientRect();
                 traces.forEach(trace => {
                     const rect1 = trace.node1.getBoundingClientRect();
                     const rect2 = trace.node2.getBoundingClientRect();
+                    const containerRect = container.getBoundingClientRect();
 
-                    const x1 = rect1.left + rect1.width / 2 - navRect.left;
-                    const y1 = rect1.top + rect1.height / 2 - navRect.top;
-                    const x2 = rect2.left + rect2.width / 2 - navRect.left;
-                    const y2 = rect2.top + rect2.height / 2 - navRect.top;
+                    const x1 = rect1.left + rect1.width / 2 - containerRect.left;
+                    const y1 = rect1.top + rect1.height / 2 - containerRect.top;
+                    const x2 = rect2.left + rect2.width / 2 - containerRect.left;
+                    const y2 = rect2.top + rect2.height / 2 - containerRect.top;
 
                     const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
                     const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
 
                     trace.element.style.width = `${length}px`;
                     trace.element.style.left = `${x1}px`;
-                    trace.element.style.top = `${y1 - trace.element.offsetHeight / 2}px`;
+                    trace.element.style.top = `${y1 - trace.element.offsetHeight / 2}px`; // Center vertically
                     trace.element.style.transform = `rotate(${angle}deg)`;
-                    trace.element.style.transformOrigin = `0 50%`;
+                    trace.element.style.transformOrigin = `0 50%`; // Rotate from the left edge
                 });
             };
 
+            // Initial positioning and update on resize
             window.addEventListener('resize', updateTracesPosition);
-            setTimeout(updateTracesPosition, 0);
+            setTimeout(updateTracesPosition, 0); // Call once after initial render
 
+            // Add hover/active logic
             nodeElements.forEach((wrapper, index) => {
                 const button = wrapper.querySelector('.circuit-node');
                 button.onclick = () => navigateTo(button.dataset.page);
 
                 button.addEventListener('mouseenter', () => {
+                    // Highlight current node
                     button.classList.add('hovered');
+                    // Highlight adjacent traces
                     if (index > 0) {
                         traces[index - 1].element.classList.add('hovered');
                     }
@@ -1241,7 +1151,9 @@
                 });
 
                 button.addEventListener('mouseleave', () => {
+                    // Remove highlight from current node
                     button.classList.remove('hovered');
+                    // Remove highlight from adjacent traces
                     if (index > 0) {
                         traces[index - 1].element.classList.remove('hovered');
                     }
@@ -1251,12 +1163,14 @@
                 });
             });
 
+            // Function to update active state
             const updateActiveNode = () => {
                 nodeElements.forEach(wrapper => {
                     const button = wrapper.querySelector('.circuit-node');
                     const isActive = appState.currentPage === button.dataset.page;
                     button.classList.toggle('active', isActive);
 
+                    // Also activate traces connected to the active node
                     const index = navItemsData.findIndex(item => item.page === button.dataset.page);
                     if (isActive) {
                         if (index > 0) {
@@ -1276,7 +1190,10 @@
                 });
             };
 
+            // Initial active state setup
             updateActiveNode();
+
+            // Return update function for renderApp to call
             return updateActiveNode;
         }
 
@@ -1343,22 +1260,27 @@
                 }
 
                 void main() {
-                    vec2 st = coord(gl_FragCoord.xy) + 0.5;
-                    vec2 posMouse = coord(u_mouse * u_pixelRatio) * vec2(1., -1.) + 0.5;
+                    vec2 st = coord(gl_FragCoord.xy) + 0.5; // Normalized fragment coordinate (0 to 1)
+                    vec2 posMouse = coord(u_mouse * u_pixelRatio) * vec2(1., -1.) + 0.5; // Normalized mouse coordinate (0 to 1)
                     
                     vec4 textSample = texture2D(u_textTexture, v_texcoord);
-                    float textAlpha = textSample.a;
+                    float textAlpha = textSample.a; // Use the alpha channel of the text texture
 
+                    // Calculate mouse-driven blur/glow effect
                     float mouseEffect = fill(
                         sdCircle(st, posMouse),
                         u_circleSize,
                         u_circleEdge
                     );
 
-                    float finalAlpha = textAlpha + mouseEffect * textAlpha * 0.5;
+                    // Combine text alpha with mouse effect
+                    // Only glow where there's text, and enhance glow with mouse
+                    float finalAlpha = textAlpha + mouseEffect * textAlpha * 0.5; // Adjusted multiplier for subtle glow
 
-                    vec3 glowColor = vec3(0.0, 0.9, 0.0);
+                    // Color of the glow. Electric green.
+                    vec3 glowColor = vec3(0.0, 0.9, 0.0); // Electric green RGB
 
+                    // Final color: blend background (black) with glow color based on finalAlpha
                     vec3 finalColor = mix(vec3(0.0), glowColor, finalAlpha);
 
                     gl_FragColor = vec4(finalColor, finalAlpha);
@@ -1367,18 +1289,20 @@
 
             function drawTextToCanvas(text, canvas) {
                 const ctx = canvas.getContext('2d');
-                const fontSize = 60;
+                const fontSize = 60; // Adjusted font size
                 const fontFamily = 'Inter';
                 
+                // Set canvas dimensions based on container size and pixel ratio
                 canvas.width = container.clientWidth * pixelRatio;
                 canvas.height = container.clientHeight * pixelRatio;
                 
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous content
                 ctx.font = `${fontSize * pixelRatio}px ${fontFamily}`;
-                ctx.fillStyle = 'white';
+                ctx.fillStyle = 'white'; // Draw text in white, shader will color it green
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 
+                // Calculate position to center text vertically and horizontally
                 const x = canvas.width / 2;
                 const y = canvas.height / 2;
                 
@@ -1401,7 +1325,7 @@
                 camera.position.z = 1;
 
                 renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-                renderer.setClearColor(0x000000, 0);
+                renderer.setClearColor(0x000000, 0); // Transparent background
                 container.appendChild(renderer.domElement);
 
                 offscreenCanvas = document.createElement('canvas');
@@ -1415,11 +1339,11 @@
                         u_resolution: { value: vResolution },
                         u_pixelRatio: { value: pixelRatio },
                         u_textTexture: { value: textTexture },
-                        u_circleSize: { value: 0.2 },
-                        u_circleEdge: { value: 0.4 }
+                        u_circleSize: { value: 0.2 }, // Base size of the mouse effect circle
+                        u_circleEdge: { value: 0.4 }  // Softness of the mouse effect edge
                     },
                     transparent: true,
-                    blending: THREE.AdditiveBlending
+                    blending: THREE.AdditiveBlending // For glowing effect
                 });
 
                 const geometry = new THREE.PlaneGeometry(1, 1);
@@ -1434,9 +1358,10 @@
                 animationFrameId = requestAnimationFrame(animate);
 
                 const t = performance.now();
-                const dt = (t - lastTime) * 0.001;
+                const dt = (t - lastTime) * 0.001; // Convert to seconds
                 lastTime = t;
 
+                // Dampen mouse movement for smoother effect
                 vMouseDamp.x = THREE.MathUtils.damp(vMouseDamp.x, vMouse.x, 8, dt);
                 vMouseDamp.y = THREE.MathUtils.damp(vMouseDamp.y, vMouse.y, 8, dt);
 
@@ -1466,6 +1391,7 @@
                 vResolution.set(width, height).multiplyScalar(dpr);
                 quad.material.uniforms.u_pixelRatio.value = dpr;
 
+                // Redraw text to offscreen canvas on resize to maintain quality
                 drawTextToCanvas(textContent, offscreenCanvas);
             }
 
@@ -1473,10 +1399,12 @@
             animate();
             window.addEventListener('resize', onWindowResize);
             container.addEventListener('mousemove', onPointerMove);
-            container.addEventListener('touchmove', onPointerMove, { passive: false });
+            container.addEventListener('touchmove', onPointerMove, { passive: false }); // For touch devices
 
-            onWindowResize(); // Initial resize call
+            // Initial resize call
+            onWindowResize();
 
+            // Cleanup function
             return () => {
                 cancelAnimationFrame(animationFrameId);
                 window.removeEventListener('resize', onWindowResize);
@@ -1597,8 +1525,8 @@
                         if (clickedStep !== stepperCurrentStep) {
                             stepperDirection = clickedStep > stepperCurrentStep ? 1 : -1;
                             stepperCurrentStep = clickedStep;
-                            appState.stepperCurrentStep = stepperCurrentStep;
-                            appState.stepperDirection = stepperDirection;
+                            appState.stepperCurrentStep = stepperCurrentStep; // Update global state
+                            appState.stepperDirection = stepperDirection; // Update global state
                             renderStepper();
                         }
                     };
@@ -1627,48 +1555,53 @@
                             appState.stepperDirection = stepperDirection;
                             renderStepper();
                         } else {
+                            // Handle completion
                             stepperDirection = 1;
-                            stepperCurrentStep++;
+                            stepperCurrentStep++; // Move past last step to indicate completion
                             appState.stepperCurrentStep = stepperCurrentStep;
                             appState.stepperDirection = stepperDirection;
-                            renderStepper();
+                            renderStepper(); // Re-render to show completion message
                         }
                     };
                 }
 
+                // Handle content transitions and height
                 const contentWrapper = document.getElementById('stepper-content-wrapper');
                 const currentContentDiv = document.getElementById('stepper-current-step-content');
 
                 if (contentWrapper && currentContentDiv) {
+                    // Apply transition classes
                     currentContentDiv.classList.remove('enter-right', 'enter-left', 'exit-right', 'exit-left', 'center');
-                    if (stepperDirection === 1) {
+                    if (stepperDirection === 1) { // Moving next
                         currentContentDiv.classList.add('enter-right');
                         setTimeout(() => {
                             currentContentDiv.classList.remove('enter-right');
                             currentContentDiv.classList.add('center');
-                        }, 50);
-                    } else if (stepperDirection === -1) {
+                        }, 50); // Small delay for transition to apply
+                    } else if (stepperDirection === -1) { // Moving back
                         currentContentDiv.classList.add('enter-left');
                         setTimeout(() => {
                             currentContentDiv.classList.remove('enter-left');
                             currentContentDiv.classList.add('center');
                         }, 50);
-                    } else {
+                    } else { // Initial load or direct navigation
                         currentContentDiv.classList.add('center');
                     }
 
+                    // Adjust wrapper height after content is rendered and transitioned
+                    // Use a small delay to allow content to settle
                     setTimeout(() => {
                         if (currentContentDiv.offsetHeight > 0) {
                             contentWrapper.style.height = `${currentContentDiv.offsetHeight}px`;
                         } else if (isCompleted) {
                             contentWrapper.style.height = '0px';
                         }
-                    }, 100);
+                    }, 100); // Adjust delay as needed
                 }
             };
 
-            renderStepper();
-            return renderStepper;
+            renderStepper(); // Initial render
+            return renderStepper; // Return render function for cleanup
         }
 
 
@@ -1681,16 +1614,18 @@
             }
 
             let tasbeehCount = appState.tasbeehCount;
-            const fontSize = 48;
-            const height = fontSize * 1.2;
+            const fontSize = 48; // Smaller font for better fit
+            const height = fontSize * 1.2; // Height of a digit slot, including padding
 
             const renderCounter = () => {
-                const countString = String(tasbeehCount).padStart(3, '0');
+                const countString = String(tasbeehCount).padStart(3, '0'); // Ensure 3 digits
                 const digitsHtml = countString.split('').map(digitChar => {
                     const digitValue = parseInt(digitChar);
+                    // Calculate translateY for the rolling effect
+                    // Each number is 'height' tall. To show 'digitValue', we shift by -digitValue * height
                     const translateY = -digitValue * height;
                     return `
-                        <div class="tasbeeh-digit-wrapper" style="height: ${height}px; width: ${fontSize * 0.7}px;">
+                        <div class="tasbeeh-digit-wrapper" style="height: ${height}px; width: ${fontSize * 0.6}px;">
                             <div class="tasbeeh-digit-numbers" style="transform: translateY(${translateY}px);">
                                 ${Array.from({ length: 10 }, (_, i) => `<span class="tasbeeh-digit-number" style="height: ${height}px;">${i}</span>`).join('')}
                             </div>
@@ -1708,25 +1643,26 @@
                     </div>
                 `;
 
+                // Attach Event Listeners
                 document.getElementById('tasbeeh-count-btn').onclick = () => {
                     tasbeehCount++;
-                    appState.tasbeehCount = tasbeehCount;
+                    appState.tasbeehCount = tasbeehCount; // Update global state
                     renderCounter();
                 };
 
                 document.getElementById('tasbeeh-reset-btn').onclick = () => {
                     tasbeehCount = 0;
-                    appState.tasbeehCount = tasbeehCount;
+                    appState.tasbeehCount = tasbeehCount; // Update global state
                     renderCounter();
                 };
             };
 
-            renderCounter();
-            return renderCounter;
+            renderCounter(); // Initial render
+            return renderCounter; // Return render function for cleanup
         }
 
         // --- Card Swiper Logic (New) ---
-        function initCardSwiper(containerId, autoplayInterval = 5000) { // Added autoplayInterval parameter
+        function initCardSwiper(containerId) {
             const container = document.getElementById(containerId);
             if (!container) {
                 console.error(`CardSwiper: Container with ID '${containerId}' not found.`);
@@ -1763,20 +1699,6 @@
             let currentCardIndex = appState.currentCardIndex;
             const totalCards = projectData.length;
 
-            const startAutoplay = () => {
-                if (appState.swiperAutoplayInterval) {
-                    clearInterval(appState.swiperAutoplayInterval);
-                }
-                appState.swiperAutoplayInterval = setInterval(showNextCard, autoplayInterval);
-            };
-
-            const stopAutoplay = () => {
-                if (appState.swiperAutoplayInterval) {
-                    clearInterval(appState.swiperAutoplayInterval);
-                    appState.swiperAutoplayInterval = null;
-                }
-            };
-
             const renderCards = () => {
                 container.innerHTML = ''; // Clear existing cards
 
@@ -1784,7 +1706,6 @@
                 container.innerHTML = `
                     <button id="swiper-prev-btn" class="swiper-nav-button left">&#10094;</button>
                     <button id="swiper-next-btn" class="swiper-nav-button right">&#10095;</button>
-                    <div id="swiper-dots" class="swiper-dots-container"></div>
                 `;
 
                 projectData.forEach((project, index) => {
@@ -1800,28 +1721,10 @@
                 });
 
                 updateCardPositions();
-                updateDots();
 
                 // Attach event listeners to buttons
-                const prevBtn = document.getElementById('swiper-prev-btn');
-                const nextBtn = document.getElementById('swiper-next-btn');
-                
-                prevBtn.onclick = () => { stopAutoplay(); showPrevCard(); };
-                nextBtn.onclick = () => { stopAutoplay(); showNextCard(); };
-
-                // Add event listeners to dots
-                const dotsContainer = document.getElementById('swiper-dots');
-                dotsContainer.querySelectorAll('.swiper-dot').forEach((dot, index) => {
-                    dot.onclick = () => {
-                        stopAutoplay();
-                        currentCardIndex = index;
-                        appState.currentCardIndex = currentCardIndex;
-                        updateCardPositions();
-                        updateDots();
-                    };
-                });
-
-                startAutoplay(); // Start autoplay after rendering
+                document.getElementById('swiper-prev-btn').onclick = showPrevCard;
+                document.getElementById('swiper-next-btn').onclick = showNextCard;
             };
 
             const updateCardPositions = () => {
@@ -1841,37 +1744,20 @@
                 });
             };
 
-            const updateDots = () => {
-                const dotsContainer = document.getElementById('swiper-dots');
-                if (!dotsContainer) return;
-
-                dotsContainer.innerHTML = ''; // Clear existing dots
-                for (let i = 0; i < totalCards; i++) {
-                    const dot = document.createElement('div');
-                    dot.className = `swiper-dot ${i === currentCardIndex ? 'active' : ''}`;
-                    dot.dataset.index = i;
-                    dotsContainer.appendChild(dot);
-                }
-            };
-
             const showNextCard = () => {
                 currentCardIndex = (currentCardIndex + 1) % totalCards;
-                appState.currentCardIndex = currentCardIndex;
+                appState.currentCardIndex = currentCardIndex; // Update global state
                 updateCardPositions();
-                updateDots();
             };
 
             const showPrevCard = () => {
                 currentCardIndex = (currentCardIndex - 1 + totalCards) % totalCards;
-                appState.currentCardIndex = currentCardIndex;
+                appState.currentCardIndex = currentCardIndex; // Update global state
                 updateCardPositions();
-                updateDots();
             };
 
-            renderCards();
-            return () => {
-                stopAutoplay(); // Cleanup autoplay interval
-            };
+            renderCards(); // Initial render
+            return renderCards; // Return render function for cleanup (though not strictly needed for this simple swiper)
         }
 
 
@@ -1886,16 +1772,16 @@
                         <!-- Rotating taglines will be rendered here by JavaScript -->
                     </div>
                     <div class="mt-8 flex justify-center space-x-4">
-                        <a href="#projects-swiper-section" class="btn-glow py-3 px-6 rounded-lg shadow-lg font-bold transition-transform transform hover:scale-105">
+                        <a href="#" class="btn-glow py-3 px-6 rounded-lg shadow-lg font-bold transition-transform transform hover:scale-105">
                             My Projects
                         </a>
-                        <a href="#contact-stepper-section" class="btn-glow py-3 px-6 rounded-lg shadow-lg font-bold transition-transform transform hover:scale-105">
+                        <a href="#" class="btn-glow py-3 px-6 rounded-lg shadow-lg font-bold transition-transform transform hover:scale-105">
                             Contact Me
                         </a>
                     </div>
 
                     <!-- My Projects Section with Card Swiper -->
-                    <section id="projects-swiper-section" class="py-16">
+                    <section class="py-16">
                         <h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center">My Projects</h2>
                         <div id="projects-swiper-container" class="projects-swiper-container">
                             <!-- Cards and buttons will be injected here by JavaScript -->
@@ -1903,7 +1789,7 @@
                     </section>
 
                     <!-- New Stepper Section -->
-                    <section id="contact-stepper-section" class="py-16">
+                    <section class="py-16">
                         <h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center">Get in Touch</h2>
                         <div id="contact-stepper-container" class="stepper-outer-container">
                             <!-- Stepper will be injected here by JavaScript -->
@@ -1925,4 +1811,500 @@
             const newsContent = appState.newsArticles.length > 0
                 ? appState.newsArticles.map(article => getNewsCardHtml(article.title, article.date, article.description, article.link || '#')).join('')
                 : `<div class="col-span-full text-center text-gray-400 p-4 border border-dashed border-gray-700 rounded-lg">
-                    ${appState.isLoadingNews ? 'Generating AI news...' : 'No news articles available. Cl
+                    ${appState.isLoadingNews ? 'Generating AI news...' : 'No news articles available. Click "Get New News" to generate some!'}
+                   </div>`;
+
+            return `
+                <section class="py-8 animate-fade-in">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center">Latest in News</h2>
+                    <div class="text-center mb-8">
+                        <button id="fetch-news-btn" class="btn-glow py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 ${appState.isLoadingNews ? 'opacity-50 cursor-not-allowed' : ''}" ${appState.isLoadingNews ? 'disabled' : ''}>
+                            ${appState.isLoadingNews ? 'Generating...' : 'Get New News'}
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        ${newsContent}
+                    </div>
+                </section>
+            `;
+        }
+
+        function getNewsCardHtml(title, date, description, link) {
+            return `
+                <div class="card-glow rounded-xl shadow-lg p-6 transform hover:scale-105 transition-transform duration-300">
+                    <h3 class="text-xl font-semibold text-green-300 mb-2">${title}</h3>
+                    <p class="text-sm text-gray-500 mb-3">${date}</p>
+                    <p class="text-gray-300 mb-4">${description}</p>
+                    <a href="${link}" class="text-green-400 hover:text-green-300 font-medium transition-colors duration-200" target="_blank" rel="noopener noreferrer">
+                        Read More &rarr;
+                    </a>
+                </div>
+            `;
+        }
+
+        function getAILLMPageHtml() {
+            return `
+                <section class="py-8 animate-fade-in">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center">Large Language Models (LLMs)</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        ${getLLMCardHtml("Gemini", "Multimodal", "Google's family of multimodal large language models, designed for various tasks from text generation to image understanding.", "https://gemini.google.com/")}
+                        ${getLLMCardHtml("GPT-4", "General Purpose", "OpenAI's advanced large language model, known for its strong reasoning and generation capabilities.", "https://openai.com/gpt-4")}
+                        ${getLLMCardHtml("Llama 3", "Open Source", "Meta AI's powerful open-source large language model, available in various sizes for diverse applications.", "https://llama.meta.com/")}
+                        ${getLLMCardHtml("Claude 3", "Conversational", "Anthropic's family of models, designed for helpful, harmless, and honest AI interactions.", "https://www.anthropic.com/news/claude-3")}
+                        ${getLLMCardHtml("Falcon 180B", "Open Source", "A large-scale open-source language model from Technology Innovation Institute (TII), known for its strong performance.", "https://falconllm.tii.ae/")}
+                        ${getLLMCardHtml("Mistral 7B", "Open Source", "A powerful and efficient language model from Mistral AI, optimized for performance and cost-effectiveness.", "https://mistral.ai/news/announcing-mistral-7b/")}
+                        ${getLLMCardHtml("Cohere Command", "Enterprise AI", "Cohere's flagship language model designed for enterprise applications, offering strong performance in various business contexts.", "https://cohere.com/models/command")}
+                        <div class="col-span-full text-center text-gray-400 p-4 border border-dashed border-gray-700 rounded-lg">
+                            Exploring more LLMs and their unique applications!
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        function getLLMCardHtml(name, category, description, link) {
+            return `
+                <div class="card-glow rounded-xl shadow-lg p-6 transform hover:scale-105 transition-transform duration-300">
+                    <h3 class="text-xl font-semibold text-cyan-300 mb-2">${name}</h3>
+                    <p class="text-sm text-gray-500 mb-3">Category: ${category}</p>
+                    <p class="text-gray-300 mb-4">${description}</p>
+                    <a href="${link}" class="text-green-400 hover:text-green-300 font-medium transition-colors duration-200" target="_blank" rel="noopener noreferrer">
+                        Learn More &rarr;
+                    </a>
+                </div>
+            `;
+        }
+
+        function getAIAgentPageHtml() {
+            return `
+                <section class="py-8 animate-fade-in">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center">Agents</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        ${getAIAgentCardHtml("Auto-GPT", "Autonomous Task Agent", "An experimental open-source attempt to make GPT-4 fully autonomous, capable of achieving goals without human intervention.", "https://github.com/Significant-Gravitas/Auto-GPT")}
+                        ${getAIAgentCardHtml("BabyAGI", "Task Management Agent", "A simplified version of an AI agent that focuses on creating, prioritizing, and executing tasks.", "https://github.com/yoheinakajima/babyagi")}
+                        ${getAIAgentCardHtml("LangChain Agents", "Framework Agents", "Agents built using the LangChain framework, capable of using tools to interact with the world and achieve complex goals.", "https://www.langchain.com/agents")}
+                        ${getAIAgentCardHtml("SuperAGI", "Autonomous AI Platform", "An open-source platform for building, deploying, and managing autonomous AI agents.", "https://superagi.com/")}
+                        ${getAIAgentCardHtml("AgentGPT", "No-Code Agent Builder", "Allows users to configure and deploy autonomous AI agents directly from their browser, without coding.", "https://agentgpt.reworkd.ai/")}
+                        ${getAIAgentCardHtml("MetaGPT", "Multi-Agent Framework", "A multi-agent framework that assigns different roles to LLMs to simulate a software development team.", "https://github.com/deepmind/metagpt")}
+                        <div class="col-span-full text-center text-gray-400 p-4 border border-dashed border-gray-700 rounded-lg">
+                            Discovering and documenting more innovative AI agents!
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        function getAIAgentCardHtml(name, category, description, link) {
+            return `
+                <div class="card-glow rounded-xl shadow-lg p-6 transform hover:scale-105 transition-transform duration-300">
+                    <h3 class="text-xl font-semibold text-blue-300 mb-2">${name}</h3>
+                    <p class="text-sm text-gray-500 mb-3">Category: ${category}</p>
+                    <p class="text-gray-300 mb-4">${description}</p>
+                    <a href="${link}" class="text-blue-400 hover:text-blue-300 font-medium transition-colors duration-200" target="_blank" rel="noopener noreferrer">
+                        Explore &rarr;
+                    </a>
+                </div>
+            `;
+        }
+
+        function getKnowledgePageHtml() {
+            return `
+                <section class="py-8 animate-fade-in">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center">Hub</h2>
+
+                    <!-- Fun Fact Section -->
+                    <div class="card-glow rounded-xl shadow-lg p-6 mb-8">
+                        <h3 class="text-2xl font-semibold text-yellow-300 mb-4">Did You Know?</h3>
+                        <p id="fun-fact-text" class="text-gray-300 text-lg mb-4">
+                            ${appState.isLoadingFact ? 'Loading a fascinating fact...' : appState.funFact || 'Click the button to get a fun fact!'}
+                        </p>
+                        <button id="fetch-fun-fact-btn" class="btn-glow py-2 px-4 rounded-lg shadow-md transition-transform transform hover:scale-105 ${appState.isLoadingFact ? 'opacity-50 cursor-not-allowed' : ''}" ${appState.isLoadingFact ? 'disabled' : ''}>
+                            ${appState.isLoadingFact ? 'Generating...' : 'Get a New Fun Fact'}
+                        </button>
+                    </div>
+
+                    <!-- Pi Calculation Section -->
+                    <div class="card-glow rounded-xl shadow-lg p-6 mb-8">
+                        <h3 class="text-2xl font-semibold text-purple-300 mb-4">The Marvel of Pi ($\pi$)</h3>
+                        <p class="text-gray-300 mb-4">
+                            Did you know Pi ($\pi$) is an irrational number, meaning its decimal representation never ends and never repeats? It's the ratio of a circle's circumference to its diameter, approximately $3.14159$. Mathematicians have calculated Pi to trillions of digits!
+                        </p>
+                        <p class="text-gray-400 text-sm">
+                            <a href="https://en.wikipedia.org/wiki/Pi" target="_blank" rel="noopener noreferrer" class="text-purple-400 hover:underline">Learn more about Pi</a>
+                        </p>
+                    </div>
+
+                    <!-- Other Knowledge Sections -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        ${getKnowledgeCardHtml("History of the Internet", "From ARPANET to the World Wide Web, explore the fascinating journey of how the internet came to be and evolved into what it is today.", "https://en.wikipedia.org/wiki/History_of_the_Internet")}
+                        ${getKnowledgeCardHtml("Space Related Content", "Dive into the cosmos: black holes, exoplanets, nebulae, and the latest discoveries from space telescopes and missions.", "https://en.wikipedia.org/wiki/Space_exploration")}
+                        ${getKnowledgeCardHtml("Quantum Computing Explained", "Unravel the mysteries of quantum mechanics applied to computing. Learn about qubits, superposition, entanglement, and their potential." , "https://en.wikipedia.org/wiki/Quantum_computing")}
+                        ${getKnowledgeCardHtml("IT Explained", "Demystifying information technology: networks, databases, cybersecurity, operating systems, and the infrastructure that powers our digital world.", "https://en.wikipedia.org/wiki/Information_technology")}
+                        ${getKnowledgeCardHtml("Critical Math & Computer Problems", "Explore some of the most challenging problems in mathematics and computer science, their significance, and proposed solutions (or why they remain unsolved).", "https://en.wikipedia.org/wiki/Unsolved_problems_in_mathematics")}
+                        ${getKnowledgeCardHtml("Computer Science Fundamentals", "A journey through algorithms, data structures, programming paradigms, and the theoretical foundations of computation.", "https://en.wikipedia.org/wiki/Computer_science")}
+                    </div>
+                </section>
+            `;
+        }
+
+        function getKnowledgeCardHtml(title, content, link) {
+            return `
+                <div class="card-glow rounded-xl shadow-lg p-6">
+                    <h3 class="text-xl font-semibold text-orange-300 mb-2">${title}</h3>
+                    <p class="text-gray-300 mb-4">${content}</p>
+                    <a href="${link}" class="text-orange-400 hover:text-orange-300 font-medium transition-colors duration-200" target="_blank" rel="noopener noreferrer">
+                        Explore Topic &rarr;
+                    </a>
+                </div>
+            `;
+        }
+
+        // --- Core Application Logic ---
+        const mainContentDiv = document.getElementById('main-content');
+        const navLinksDiv = document.getElementById('circuit-nav-links'); // Changed ID to match new header
+
+        function navigateTo(page) {
+            appState.currentPage = page;
+            renderApp();
+        }
+
+        async function fetchFunFact() {
+            appState.isLoadingFact = true;
+            appState.funFact = 'Generating a fun fact...';
+            renderApp(); // Re-render to show loading state
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: "Tell me a very short, interesting, and lesser-known fun fact about technology or science." }] });
+                const payload = { contents: chatHistory };
+                const apiKey = ""; // Canvas will automatically provide the API key
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    appState.funFact = text;
+                } else {
+                    appState.funFact = 'Could not generate a fun fact. Please try again.';
+                }
+            } catch (error) {
+                console.error("Error fetching fun fact:", error);
+                appState.funFact = 'Failed to load fun fact.';
+            } finally {
+                appState.isLoadingFact = false;
+                renderApp(); // Re-render to show result or error
+            }
+        }
+
+        async function fetchNewsArticles() {
+            appState.isLoadingNews = true;
+            appState.newsArticles = []; // Clear previous news
+            renderApp(); // Re-render to show loading state
+
+            try {
+                let chatHistory = [];
+                chatHistory.push({
+                    role: "user",
+                    parts: [{
+                        text: `Generate 3 short, concise, and recent (as of June 2025) AI news headlines with a brief description and a highly relevant, valid external link (URL) based on the content of the news.
+                               Provide the output as a JSON array of objects, each with 'title', 'date', 'description', and 'link' properties.
+                               Example: [{"title": "AI Breakthrough", "date": "June 1, 2025", "description": "New AI model achieves...", "link": "https://example.com/ai-breakthrough"}]`
+                    }]
+                });
+                const payload = {
+                    contents: chatHistory,
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        responseSchema: {
+                            type: "ARRAY",
+                            items: {
+                                type: "OBJECT",
+                                properties: {
+                                    "title": { "type": "STRING" },
+                                    "date": { "type": "STRING" },
+                                    "description": { "type": "STRING" },
+                                    "link": { "type": "STRING" }
+                                },
+                                "propertyOrdering": ["title", "date", "description", "link"]
+                            }
+                        }
+                    }
+                };
+                const apiKey = ""; // Canvas will automatically provide the API key
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const jsonString = result.candidates[0].content.parts[0].text;
+                    try {
+                        const parsedNews = JSON.parse(jsonString);
+                        if (Array.isArray(parsedNews)) {
+                            appState.newsArticles = parsedNews;
+                        } else {
+                            console.error("API response is not an array:", parsedNews);
+                            appState.newsArticles = [{ title: "Error", date: "", description: "Failed to parse news articles.", link: "#" }];
+                        }
+                    } catch (parseError) {
+                        console.error("Error parsing news JSON:", parseError, jsonString);
+                        appState.newsArticles = [{ title: "Error", date: "", description: "Failed to parse news articles.", link: "#" }];
+                    }
+                } else {
+                    appState.newsArticles = [{ title: "No News", date: "", description: "Could not generate news articles. Please try again.", link: "#" }];
+                }
+            } catch (error) {
+                console.error("Error fetching news:", error);
+                appState.newsArticles = [{ title: "Error", date: "", description: "Failed to load news articles.", link: "#" }];
+            } finally {
+                appState.isLoadingNews = false;
+                renderApp(); // Re-render to show news or error
+            }
+        }
+
+        let updateActiveCircuitNode; // Declare globally to be accessible by renderApp
+        let heroTextEffectCleanup = null; // To store the cleanup function for the hero text effect
+        let stepperCleanup = null; // To store the cleanup function for the stepper
+        let tasbeehCounterCleanup = null; // To store the cleanup function for the tasbeeh counter
+        let cardSwiperCleanup = null; // To store the cleanup function for the card swiper
+
+
+        function renderApp() {
+            // Render navigation links
+            const navItems = [
+                { name: 'Home', page: 'home' },
+                { name: 'News', page: 'news' },
+                { name: 'LLMs', page: 'ai-llm' },
+                { name: 'Agents', page: 'ai-agent' },
+                { name: 'Hub', page: 'knowledge' }
+            ];
+
+            // Only update the circuit navigation if it's already initialized
+            if (!updateActiveCircuitNode) {
+                // Initial creation of circuit navigation elements
+                navLinksDiv.innerHTML = navItems.map(item => {
+                    return `
+                        <div class="circuit-node-wrapper">
+                            <div class="circuit-node-label">${item.name}</div>
+                            <button class="circuit-node" data-page="${item.page}">${item.name}</button>
+                        </div>
+                    `;
+                }).join('');
+
+                // Create traces and attach event listeners
+                const traces = [];
+                const nodeElements = Array.from(navLinksDiv.querySelectorAll('.circuit-node-wrapper'));
+
+                for (let i = 0; i < nodeElements.length - 1; i++) {
+                    const node1 = nodeElements[i].querySelector('.circuit-node');
+                    const node2 = nodeElements[i + 1].querySelector('.circuit-node');
+
+                    const trace = document.createElement('div');
+                    trace.className = 'circuit-trace';
+                    navLinksDiv.appendChild(trace);
+                    traces.push({ element: trace, node1: node1, node2: node2 });
+                }
+
+                const updateTracesPosition = () => {
+                    const navRect = navLinksDiv.getBoundingClientRect();
+                    traces.forEach(trace => {
+                        const rect1 = trace.node1.getBoundingClientRect();
+                        const rect2 = trace.node2.getBoundingClientRect();
+
+                        const x1 = rect1.left + rect1.width / 2 - navRect.left;
+                        const y1 = rect1.top + rect1.height / 2 - navRect.top;
+                        const x2 = rect2.left + rect2.width / 2 - navRect.left;
+                        const y2 = rect2.top + rect2.height / 2 - navRect.top;
+
+                        const length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+                        const angle = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+
+                        trace.element.style.width = `${length}px`;
+                        trace.element.style.left = `${x1}px`;
+                        trace.element.style.top = `${y1 - trace.element.offsetHeight / 2}px`; // Center vertically
+                        trace.element.style.transform = `rotate(${angle}deg)`;
+                        trace.element.style.transformOrigin = `0 50%`; // Rotate from the left edge
+                    });
+                };
+
+                window.addEventListener('resize', updateTracesPosition);
+                setTimeout(updateTracesPosition, 0); // Call once after initial render
+
+                nodeElements.forEach((wrapper, index) => {
+                    const button = wrapper.querySelector('.circuit-node');
+                    button.onclick = () => navigateTo(button.dataset.page);
+
+                    button.addEventListener('mouseenter', () => {
+                        // Highlight current node
+                        button.classList.add('hovered');
+                        // Highlight adjacent traces
+                        if (index > 0) {
+                            traces[index - 1].element.classList.add('hovered');
+                        }
+                        if (index < traces.length) {
+                            traces[index].element.classList.add('hovered');
+                        }
+                    });
+
+                    button.addEventListener('mouseleave', () => {
+                        // Remove highlight from current node
+                        button.classList.remove('hovered');
+                        // Remove highlight from adjacent traces
+                        if (index > 0) {
+                            traces[index - 1].element.classList.remove('hovered');
+                        }
+                        if (index < traces.length) {
+                            traces[index].element.classList.remove('hovered');
+                        }
+                    });
+                });
+
+                updateActiveCircuitNode = () => {
+                    nodeElements.forEach(wrapper => {
+                        const button = wrapper.querySelector('.circuit-node');
+                        const isActive = appState.currentPage === button.dataset.page;
+                        button.classList.toggle('active', isActive);
+
+                        const index = navItems.findIndex(item => item.page === button.dataset.page);
+                        if (isActive) {
+                            if (index > 0) {
+                                traces[index - 1].element.classList.add('active');
+                            }
+                            if (index < traces.length) {
+                                traces[index].element.classList.add('active');
+                            }
+                        } else {
+                            if (index > 0) {
+                                traces[index - 1].element.classList.remove('active');
+                            }
+                            if (index < traces.length) {
+                                traces[index].element.classList.remove('active');
+                            }
+                        }
+                    });
+                };
+            }
+
+            // Always call updateActiveCircuitNode to ensure active state is correct
+            updateActiveCircuitNode();
+
+            // Cleanup previous effects
+            if (heroTextEffectCleanup) {
+                heroTextEffectCleanup();
+                heroTextEffectCleanup = null;
+            }
+            if (stepperCleanup) {
+                stepperCleanup();
+                stepperCleanup = null;
+            }
+            if (tasbeehCounterCleanup) {
+                tasbeehCounterCleanup();
+                tasbeehCounterCleanup = null;
+            }
+            if (cardSwiperCleanup) {
+                cardSwiperCleanup();
+                cardSwiperCleanup = null;
+            }
+
+
+            // Render main content
+            let pageHtml = '';
+            switch (appState.currentPage) {
+                case 'home':
+                    pageHtml = getHomePageHtml();
+                    // After rendering, initialize the effects
+                    setTimeout(() => {
+                        heroTextEffectCleanup = initHeroTextEffect('hero-text-effect-container', "Hello, I am Riyad Hossain");
+                        initRotatingTagline(
+                            'rotating-tagline-container',
+                            [
+                                "A Digital Architect crafting immersive web experiences.",
+                                "An AI Explorer, delving into the future of intelligent systems.",
+                                "A Quantum Enthusiast, fascinated by the universe's deepest principles.",
+                                "Constantly learning, building, and innovating."
+                            ],
+                            4000 // Rotate every 4 seconds
+                        );
+                        stepperCleanup = initStepper('contact-stepper-container');
+                        tasbeehCounterCleanup = initTasbeehCounter('tasbeeh-counter-container');
+                        cardSwiperCleanup = initCardSwiper('projects-swiper-container');
+                    }, 0);
+                    break;
+                case 'news':
+                    pageHtml = getNewsPageHtml();
+                    // After rendering, attach event listener for news button
+                    setTimeout(() => {
+                        const fetchNewsBtn = document.getElementById('fetch-news-btn');
+                        if (fetchNewsBtn) {
+                            fetchNewsBtn.onclick = fetchNewsArticles;
+                            fetchNewsBtn.disabled = appState.isLoadingNews;
+                            fetchNewsBtn.textContent = appState.isLoadingNews ? 'Generating...' : 'Get New News';
+                        }
+                    }, 0);
+                    break;
+                case 'ai-llm':
+                    pageHtml = getAILLMPageHtml();
+                    break;
+                case 'ai-agent':
+                    pageHtml = getAIAgentPageHtml();
+                    break;
+                case 'knowledge':
+                    pageHtml = getKnowledgePageHtml();
+                    // After rendering, attach event listener for fun fact button
+                    setTimeout(() => { // Use setTimeout to ensure DOM is updated
+                        const funFactBtn = document.getElementById('fetch-fun-fact-btn');
+                        if (funFactBtn) {
+                            funFactBtn.onclick = fetchFunFact;
+                            // Update button state immediately if it exists
+                            funFactBtn.disabled = appState.isLoadingFact;
+                            funFactBtn.textContent = appState.isLoadingFact ? 'Generating...' : 'Get a New Fun Fact';
+                        }
+                        const funFactText = document.getElementById('fun-fact-text');
+                        if (funFactText) {
+                            funFactText.textContent = appState.isLoadingFact ? 'Loading a fascinating fact...' : appState.funFact || 'Click the button to get a fun fact!';
+                        }
+                    }, 0);
+                    break;
+                default:
+                    pageHtml = getHomePageHtml();
+            }
+            mainContentDiv.innerHTML = pageHtml;
+
+            // If on knowledge page and no fun fact, fetch one
+            if (appState.currentPage === 'knowledge' && !appState.funFact && !appState.isLoadingFact) {
+                fetchFunFact();
+            }
+            // If on news page and no news, fetch news
+            if (appState.currentPage === 'news' && appState.newsArticles.length === 0 && !appState.isLoadingNews) {
+                fetchNewsArticles();
+            }
+        }
+
+        // Initialize on DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            initParticlesBackground('particles-background-container'); // Initialize the new particles background
+            initCircuitNavigation('circuit-nav-links'); // Initialize the circuit navigation
+            renderApp(); // Initial render of the application
+        });
+    </script>
+</body>
+</html>
+
+
