@@ -1,0 +1,714 @@
+body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            background-color: #1A1A1A; /* Deep Charcoal Background */
+            color: #F0F0F0; /* Soft White Text */
+        }
+
+        /* Container for the 3D particles background */
+        #particles-background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: -1; /* Ensure it's behind all content */
+            background-color: #1A1A1A; /* Fallback/base color for the background */
+        }
+
+        #particles-background-container canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Basic animation for page transitions */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        /* Typing Effect for Hero Title (Removed, but keeping class for reference if needed) */
+        .typing-text {
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 0.15em solid #00E600; /* Cursor */
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #00E600; }
+        }
+
+        /* Rotating Tagline Effect */
+        .rotating-tagline-container {
+            min-height: 2.5rem; /* Ensure enough height for text rotation */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            max-width: 3xl;
+            margin-left: auto;
+            margin-right: auto;
+            color: #90EE90; /* Light Green for taglines */
+            font-size: 1.125rem; /* text-lg */
+        }
+
+        .rotating-tagline-content {
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            position: absolute; /* Allow stacking for smooth transitions */
+            text-align: center;
+            width: 100%;
+        }
+        .rotating-tagline-content.active {
+            opacity: 1;
+        }
+
+        /* Button Glow Effect */
+        .btn-glow {
+            position: relative;
+            overflow: hidden;
+            background-color: #00E600; /* Electric Green */
+            color: #1A1A1A; /* Dark text on bright button */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .btn-glow:hover {
+            background-color: #00CC00; /* Slightly darker green on hover */
+            box-shadow: 0 0 15px rgba(0, 230, 0, 0.6); /* Green glow */
+        }
+
+        /* Card Hover Effect */
+        .card-glow {
+            background-color: #2A2A2A; /* Slightly lighter dark gray */
+            border: 1px solid #3A3A3A; /* Subtle border */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-glow:hover {
+            border-color: #00E600; /* Green border on hover */
+            box-shadow: 0 0 10px rgba(0, 230, 0, 0.4); /* Green glow */
+        }
+
+        /* Digital Text Glow Effect for Header Name */
+        .digital-text-glow {
+            text-shadow: 0 0 5px rgba(0, 230, 0, 0.5), 0 0 10px rgba(0, 230, 0, 0.3);
+            animation: pulse-glow 2s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from {
+                text-shadow: 0 0 5px rgba(0, 230, 0, 0.5), 0 0 10px rgba(0, 230, 0, 0.3);
+            }
+            to {
+                text-shadow: 0 0 8px rgba(0, 230, 0, 0.8), 0 0 15px rgba(0, 230, 0, 0.6), 0 0 20px rgba(0, 230, 0, 0.4);
+            }
+        }
+
+        /* --- Circuit Board Header Styles --- */
+        .circuit-header {
+            background-color: #0F0F0F; /* Even darker background for header */
+            background-image:
+                linear-gradient(0deg, transparent 95%, rgba(0, 230, 0, 0.05) 100%),
+                linear-gradient(90deg, transparent 95%, rgba(0, 230, 0, 0.05) 100%);
+            background-size: 20px 20px; /* Smaller grid for circuit board feel */
+            border-bottom: 2px solid #00E600; /* Stronger green border */
+            box-shadow: 0 5px 15px rgba(0, 230, 0, 0.2); /* Green shadow */
+            position: relative;
+            z-index: 50;
+            padding: 1.5rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .circuit-nav {
+            display: flex;
+            position: relative; /* For positioning traces */
+            gap: 1.5rem; /* More space between nodes */
+            margin-top: 0.5rem; /* Adjust vertical alignment */
+            margin-bottom: 0.5rem;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1; /* Allow nav to take available space */
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+
+        .circuit-node-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10; /* Ensure nodes are above traces */
+        }
+
+        .circuit-node {
+            width: 3.5rem; /* Base size for nodes */
+            height: 3.5rem;
+            background-color: #2A2A2A; /* Dark node background */
+            border-radius: 50%; /* Circular nodes */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            box-shadow: 0 0 5px rgba(0, 230, 0, 0.1); /* Subtle initial glow */
+            border: 1px solid #3A3A3A;
+            font-size: 0.85rem; /* Smaller text for nodes */
+            font-weight: 600;
+            color: #F0F0F0;
+            text-align: center;
+            line-height: 1.2;
+            padding: 0.2rem;
+            position: relative; /* For absolute positioning of label */
+        }
+
+        .circuit-node:hover {
+            transform: scale(1.2); /* Magnify on hover */
+            background-color: #00E600; /* Bright green on hover */
+            color: #1A1A1A; /* Dark text on bright node */
+            box-shadow: 0 0 15px rgba(0, 230, 0, 0.6), 0 0 25px rgba(0, 230, 0, 0.4); /* Stronger glow */
+            border-color: #00E600;
+        }
+
+        .circuit-node.active {
+            background-color: #00E600; /* Active node background */
+            color: #1A1A1A; /* Dark text for active node */
+            box-shadow: 0 0 20px rgba(0, 230, 0, 0.8), 0 0 30px rgba(0, 230, 0, 0.6); /* Persistent strong glow */
+            border-color: #00E600;
+            transform: scale(1.1); /* Slightly magnified when active */
+        }
+
+        .circuit-node-label {
+            position: absolute;
+            bottom: calc(100% + 0.5rem); /* Position above the node */
+            background-color: #1A1A1A;
+            color: #00E600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(10px);
+            transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+            z-index: 15; /* Ensure label is above everything */
+            font-size: 0.8rem;
+            font-weight: 700;
+            border: 1px solid #00E600;
+            box-shadow: 0 2px 5px rgba(0, 230, 0, 0.3);
+        }
+
+        .circuit-node-wrapper:hover .circuit-node-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Media Queries for Mobile Navigation */
+        @media (max-width: 768px) {
+            .circuit-header {
+                padding: 1rem; /* Reduced padding for smaller screens */
+            }
+            .circuit-nav {
+                gap: 1rem; /* Reduced gap for smaller screens */
+            }
+            .circuit-node {
+                width: 3rem; /* Slightly smaller nodes */
+                height: 3rem;
+                font-size: 0.75rem; /* Adjust font size for smaller nodes */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .circuit-nav {
+                gap: 0.5rem; /* Further reduced gap for very small screens */
+                justify-content: space-around; /* Better distribution on small screens */
+            }
+            .circuit-node {
+                width: 2.5rem; /* Smaller nodes for very small screens */
+                height: 2.5rem;
+                font-size: 0.7rem; /* Ensure text readability */
+            }
+            .circuit-node-label {
+                font-size: 0.7rem; /* Adjust label font size */
+                padding: 0.2rem 0.5rem; /* Adjust label padding */
+                bottom: calc(100% + 0.3rem); /* Adjust label position */
+            }
+        }
+
+        /* Circuit Traces */
+        .circuit-trace {
+            position: absolute;
+            background-color: rgba(0, 230, 0, 0.05); /* Subtle trace color */
+            height: 2px; /* Thickness of the trace */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 3px rgba(0, 230, 0, 0); /* No initial glow */
+            z-index: 5; /* Below nodes */
+        }
+
+        .circuit-trace.active,
+        .circuit-trace.hovered {
+            background-color: rgba(0, 230, 0, 0.5); /* Brighter when active/hovered */
+            box-shadow: 0 0 8px rgba(0, 230, 0, 0.8); /* Stronger glow */
+        }
+
+        /* Specific trace positioning will be handled by JS */
+
+        /* Hero Text Effect Container */
+        #hero-text-effect-container {
+            position: relative;
+            width: 100%;
+            height: 150px; /* Adjusted height for text */
+            margin-bottom: 1rem; /* Space below the text */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Hide overflow from blur */
+        }
+        #hero-text-effect-container canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* Stepper Styles */
+        .stepper-outer-container {
+            background-color: #2A2A2A;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 0 15px rgba(0, 230, 0, 0.3);
+            max-width: 800px;
+            margin: 2rem auto;
+            border: 1px solid #3A3A3A;
+        }
+
+        .stepper-step-circle-container {
+            border: 1px solid #4A4A4A;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            background-color: #1A1A1A;
+        }
+
+        .stepper-step-indicator-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .stepper-step-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            z-index: 20; /* Ensure indicators are above connectors */
+        }
+
+        .stepper-step-indicator-inner {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            border: 2px solid #4A4A4A;
+            background-color: #222;
+            color: #a3a3a3;
+        }
+
+        .stepper-step-indicator.active .stepper-step-indicator-inner {
+            background-color: #00E600;
+            color: #1A1A1A;
+            border-color: #00E600;
+            transform: scale(1.1);
+        }
+
+        .stepper-step-indicator.complete .stepper-step-indicator-inner {
+            background-color: #00E600;
+            color: #1A1A1A;
+            border-color: #00E600;
+        }
+
+        .stepper-check-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+            stroke: #1A1A1A; /* Dark color for checkmark */
+        }
+
+        .stepper-active-dot {
+            width: 0.75rem;
+            height: 0.75rem;
+            background-color: #1A1A1A;
+            border-radius: 50%;
+        }
+
+        .stepper-step-connector {
+            flex-grow: 1;
+            height: 2px;
+            background-color: #4A4A4A;
+            margin: 0 -0.5rem; /* Overlap with indicators */
+            position: relative;
+            z-index: 10;
+        }
+
+        .stepper-step-connector-inner {
+            height: 100%;
+            background-color: transparent;
+            transition: width 0.4s ease, background-color 0.4s ease;
+        }
+
+        .stepper-step-connector.complete .stepper-step-connector-inner {
+            background-color: #00E600;
+            width: 100%;
+        }
+
+        .stepper-step-content-wrapper {
+            position: relative;
+            overflow: hidden;
+            min-height: 150px; /* Ensure enough space for content */
+            transition: height 0.4s ease-out;
+        }
+
+        .stepper-step-content {
+            position: absolute;
+            width: 100%;
+            padding: 1rem 0;
+            transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+        }
+
+        .stepper-step-content.enter-right { transform: translateX(100%); opacity: 0; }
+        .stepper-step-content.enter-left { transform: translateX(-100%); opacity: 0; }
+        .stepper-step-content.center { transform: translateX(0%); opacity: 1; }
+        .stepper-step-content.exit-right { transform: translateX(50%); opacity: 0; }
+        .stepper-step-content.exit-left { transform: translateX(-50%); opacity: 0; }
+
+
+        .stepper-footer-container {
+            padding-top: 1.5rem;
+            border-top: 1px solid #4A4A4A;
+            margin-top: 1.5rem;
+        }
+
+        .stepper-footer-nav {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .stepper-footer-nav.end {
+            justify-content: flex-end;
+        }
+
+        .stepper-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+        }
+
+        .stepper-back-button {
+            background-color: #4A4A4A;
+            color: #F0F0F0;
+        }
+        .stepper-back-button:hover {
+            background-color: #5A5A5A;
+        }
+        .stepper-back-button.inactive {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .stepper-next-button {
+            background-color: #00E600;
+            color: #1A1A1A;
+        }
+        .stepper-next-button:hover {
+            background-color: #00CC00;
+            box-shadow: 0 0 10px rgba(0, 230, 0, 0.5);
+        }
+
+        /* Tasbeeh Counter Styles */
+        .tasbeeh-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background-color: #2A2A2A;
+            border-radius: 1rem;
+            box-shadow: 0 0 15px rgba(0, 230, 0, 0.3);
+            max-width: 400px;
+            margin: 2rem auto;
+            border: 1px solid #3A3A3A;
+        }
+
+        .tasbeeh-display {
+            display: flex;
+            position: relative;
+            overflow: hidden;
+            background-color: #1A1A1A;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: inset 0 0 8px rgba(0, 230, 0, 0.2);
+            border: 1px solid #3A3A3A;
+            font-family: 'Inter', monospace; /* Monospace for digital feel */
+            font-size: 3rem; /* Large font size */
+            font-weight: bold;
+            color: #00E600; /* Electric green for digits */
+            line-height: 1em; /* Ensure line height matches font size */
+        }
+
+        .tasbeeh-digit-wrapper {
+            position: relative;
+            width: 0.6em; /* Width per digit, adjust as needed */
+            height: 1em; /* Height of a single digit slot */
+            overflow: hidden;
+        }
+
+        .tasbeeh-digit-numbers {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            transition: transform 0.3s ease-out; /* Smooth rolling animation */
+        }
+
+        .tasbeeh-digit-number {
+            height: 1em; /* Each number takes up the height of the digit slot */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tasbeeh-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .tasbeeh-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: #00E600;
+            color: #1A1A1A;
+        }
+
+        .tasbeeh-button:hover {
+            background-color: #00CC00;
+            box-shadow: 0 0 10px rgba(0, 230, 0, 0.5);
+        }
+
+        .tasbeeh-reset-button {
+            background-color: #4A4A4A;
+            color: #F0F0F0;
+        }
+        .tasbeeh-reset-button:hover {
+            background-color: #5A5A5A;
+        }
+
+        /* Asma-ul-Husna Styles */
+        .asma-ul-husna-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+            background-color: #1A1A1A;
+            border-radius: 0.75rem;
+            border: 1px solid #3A3A3A;
+            box-shadow: 0 0 10px rgba(0, 230, 0, 0.2);
+        }
+
+        .asma-ul-husna-item {
+            background-color: #2A2A2A;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #90EE90; /* Light green for names */
+            border: 1px solid #3A3A3A;
+            transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .asma-ul-husna-item:hover {
+            transform: translateY(-3px);
+            background-color: #3A3A3A;
+            border-color: #00E600;
+            box-shadow: 0 0 8px rgba(0, 230, 0, 0.4);
+        }
+
+        /* Card Swiper Styles (New) */
+        .projects-swiper-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Adjust as needed */
+            height: 400px; /* Adjust as needed */
+            margin: 2rem auto;
+            perspective: 1000px; /* For 3D effect */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .swiper-card {
+            position: absolute;
+            width: 80%; /* Relative to container */
+            height: 80%; /* Relative to container */
+            border-radius: 12px;
+            border: 1px solid #00E600; /* Green border */
+            background: #1A1A1A; /* Dark background */
+            color: #F0F0F0;
+            padding: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0, 230, 0, 0.3);
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease-out, opacity 0.6s ease-out, z-index 0.01s linear 0.3s; /* z-index transition delay */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .swiper-card.active {
+            z-index: 10;
+            opacity: 1;
+            transform: translateX(0) rotateY(0deg) scale(1);
+        }
+
+        .swiper-card.prev {
+            z-index: 5;
+            opacity: 0.7;
+            transform: translateX(-60%) rotateY(20deg) scale(0.8);
+        }
+
+        .swiper-card.next {
+            z-index: 5;
+            opacity: 0.7;
+            transform: translateX(60%) rotateY(-20deg) scale(0.8);
+        }
+
+        .swiper-card.hidden {
+            z-index: 1;
+            opacity: 0;
+            transform: translateX(0) rotateY(0deg) scale(0.6); /* Collapse behind */
+            pointer-events: none; /* Disable interaction when hidden */
+        }
+
+        .swiper-card-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .swiper-card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00E600;
+            margin-bottom: 0.5rem;
+        }
+
+        .swiper-card-description {
+            font-size: 0.9rem;
+            color: #B0B0B0;
+            flex-grow: 1; /* Allow description to take space */
+            margin-bottom: 1rem;
+        }
+
+        .swiper-card-link {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background-color: #00E600;
+            color: #1A1A1A;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .swiper-card-link:hover {
+            background-color: #00CC00;
+            box-shadow: 0 0 8px rgba(0, 230, 0, 0.4);
+        }
+
+        /* Navigation buttons for swiper */
+        .swiper-nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 0.75rem 1rem;
+            background-color: rgba(0, 230, 0, 0.2); /* Semi-transparent green */
+            color: #00E600;
+            border-radius: 9999px; /* Full rounded */
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 20;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border: 1px solid #00E600;
+        }
+        .swiper-nav-button:hover {
+            background-color: rgba(0, 230, 0, 0.4);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .swiper-nav-button.left {
+            left: -20px; /* Adjust position */
+        }
+        .swiper-nav-button.right {
+            right: -20px; /* Adjust position */
+        }
+
+        @media (max-width: 768px) {
+            .swiper-card {
+                width: 90%;
+                height: 70%;
+            }
+            .swiper-nav-button {
+                left: 5px;
+                right: 5px;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .swiper-card {
+                width: 95%;
+                height: 60%;
+                padding: 1rem;
+            }
+            .swiper-card-title {
+                font-size: 1.2rem;
+            }
+            .swiper-card-description {
+                font-size: 0.8rem;
+            }
+            .swiper-nav-button {
+                left: 0;
+                right: 0;
+                font-size: 1rem;
+                padding: 0.5rem 0.75rem;
+            }
+        }
