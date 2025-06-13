@@ -473,7 +473,7 @@ function initCardSwiper(containerId) {
             title: "Decentralized Identity System",
             description: "Prototyped a blockchain-based decentralized identity management system for secure user authentication.",
             image: "https://placehold.co/300x200/00CC00/1A1A1A?text=Decentralized+ID",
-            link: "#"
+            link: "https://riyadmtrs.github.io/548/"
         },
         {
             title: "Smart Home Automation",
