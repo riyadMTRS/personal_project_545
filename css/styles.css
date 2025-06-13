@@ -1,7 +1,8 @@
 body {
             font-family: 'Inter', sans-serif;
             margin: 0;
-            overflow-x: hidden;
+            /* overflow-x: hidden; */ /* Removed to prevent potential vertical scroll issues */
+            overflow-y: auto; /* Ensure vertical scrolling is enabled */
             background-color: #1A1A1A; /* Deep Charcoal Background */
             color: #F0F0F0; /* Soft White Text */
         }
@@ -104,6 +105,7 @@ body {
         }
 
         /* Digital Text Glow Effect for Header Name */
+        /* Tailwind classes like text-2xl are used in HTML for base size */
         .digital-text-glow {
             text-shadow: 0 0 5px rgba(0, 230, 0, 0.5), 0 0 10px rgba(0, 230, 0, 0.3);
             animation: pulse-glow 2s infinite alternate;
@@ -231,6 +233,15 @@ body {
                 height: 3rem;
                 font-size: 0.75rem; /* Adjust font size for smaller nodes */
             }
+            .digital-text-glow { /* Header Name */
+                font-size: 1.25rem; /* Tailwind text-xl */
+            }
+            .rotating-tagline-container { /* Hero tagline */
+                font-size: 1rem; /* Tailwind text-base */
+            }
+            .stepper-outer-container { /* Stepper padding */
+                padding: 1rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -247,6 +258,24 @@ body {
                 font-size: 0.7rem; /* Adjust label font size */
                 padding: 0.2rem 0.5rem; /* Adjust label padding */
                 bottom: calc(100% + 0.3rem); /* Adjust label position */
+            }
+            .digital-text-glow { /* Header Name */
+                font-size: 1.125rem; /* Tailwind text-lg */
+            }
+            .rotating-tagline-container { /* Hero tagline */
+                font-size: 0.875rem; /* Tailwind text-sm */
+            }
+            .swiper-card-title { /* Project card title */
+                font-size: 1.1rem;
+            }
+            .swiper-card-description { /* Project card description */
+                font-size: 0.75rem;
+            }
+            .stepper-outer-container { /* Stepper padding */
+                padding: 0.5rem;
+            }
+            .card-glow { /* General card padding */
+                padding: 1rem; /* p-4 */
             }
         }
 
