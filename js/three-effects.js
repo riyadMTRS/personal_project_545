@@ -439,7 +439,7 @@ function initHeroTextEffect(containerId, textContent) {
     animate();
     window.addEventListener('resize', onWindowResize);
     container.addEventListener('mousemove', onPointerMove);
-    container.addEventListener('touchmove', onPointerMove, { passive: false }); // For touch devices
+    container.addEventListener('touchmove', onPointerMove, { passive: true }); // For touch devices
 
     // Initial resize call
     onWindowResize();
