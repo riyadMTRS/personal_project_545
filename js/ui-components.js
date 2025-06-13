@@ -465,9 +465,9 @@ function initCardSwiper(containerId) {
         },
         {
             title: "Quantum Computing Simulator",
-            description: "Built a basic quantum circuit simulator visualizing qubit states and entanglement using Three.js.",
+            description: "Advanced Quantum Circuit Simulation with Complex Mathematics by riyad",
             image: "https://placehold.co/300x200/90EE90/1A1A1A?text=Quantum+Sim",
-            link: "#"
+            link: "https://riyadmtrs.github.io/547/"
         },
         {
             title: "Decentralized Identity System",
