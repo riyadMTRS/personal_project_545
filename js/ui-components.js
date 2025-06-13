@@ -458,10 +458,10 @@ function initCardSwiper(containerId) {
 
     const projectData = [
         {
-            title: "AI Chatbot Platform",
-            description: "Developed a scalable AI chatbot platform using Gemini API for enhanced customer support and lead generation.",
+            title: "the manual programmed chatbot by riyad",
+            description: "chat with interest",
             image: "https://placehold.co/300x200/00E600/1A1A1A?text=AI+Chatbot",
-            link: "#"
+            link: "https://riyadmtrs.github.io/549/"
         },
         {
             title: "Quantum Computing Simulator",
