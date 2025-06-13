@@ -479,7 +479,7 @@ function initCardSwiper(containerId) {
             title: "Smart Home Automation",
             description: "Designed and implemented a smart home system with voice control and IoT device integration.",
             image: "https://placehold.co/300x200/00A000/1A1A1A?text=Smart+Home",
-            link: "#"
+            link: "https://riyadmtrs.github.io/550/"
         }
     ];
 
