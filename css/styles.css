@@ -1,10 +1,15 @@
+html {
+            height: 100%;
+            overflow-x: hidden; /* Prevent horizontal scroll issues at the html level */
+        }
+
 body {
             font-family: 'Inter', sans-serif;
             margin: 0;
-            /* overflow-x: hidden; */ /* Removed to prevent potential vertical scroll issues */
-            overflow-y: auto; /* Ensure vertical scrolling is enabled */
+            overflow-y: auto !important; /* Force vertical scrolling if content overflows */
             background-color: #1A1A1A; /* Deep Charcoal Background */
             color: #F0F0F0; /* Soft White Text */
+            /* min-height: 100vh; is applied by Tailwind's min-h-screen class on body element */
         }
 
         /* Container for the 3D particles background */
